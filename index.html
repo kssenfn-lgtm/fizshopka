@@ -201,7 +201,7 @@
 
     function starsPayment() {
     tg.openInvoice(
-        "https://t.me/$l-H4xq17uUgnFgAAYGciEKSbf9o",
+        "https://t.me/$ezB9GK17uUguFgAApOs35z6smGs",
         function(status) {
             if (status === "paid") {
                 tg.showAlert("✅ Оплата успешно прошла!");
@@ -209,6 +209,8 @@
                 tg.showAlert("❌ Оплата отменена.");
             } else if (status === "failed") {
                 tg.showAlert("❌ Не удалось провести оплату.");
+            } else if (status === "pending") {
+                tg.showAlert("⏳ Платёж обрабатывается.");
             }
         }
     );
