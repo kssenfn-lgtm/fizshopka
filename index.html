@@ -202,12 +202,8 @@
 
 
     function starsPayment() {
-        tg.showAlert(
-            "⭐ Telegram Stars\n\n" +
-            "Номер США — 75 Stars\n\n" +
-            "Автоматическая оплата будет подключена следующим шагом."
-        );
-    }
+    tg.sendData("buy_usa_number");
+}
 
 
     function paypalPayment() {
