@@ -18,7 +18,7 @@
             min-height: 100vh;
             font-family: Arial, sans-serif;
             background: #0f0f12;
-            color: #fff;
+            color: white;
         }
 
         .container {
@@ -28,18 +28,16 @@
 
         .logo {
             text-align: center;
-            margin: 25px 0 30px;
+            margin: 25px 0 35px;
         }
 
         .logo h1 {
             margin: 0;
             font-size: 34px;
-            font-weight: 800;
         }
 
         .logo p {
             color: #999;
-            margin-top: 8px;
         }
 
         .product {
@@ -52,41 +50,46 @@
 
         .product h2 {
             margin: 0 0 8px;
-            font-size: 21px;
         }
 
         .product p {
             color: #999;
-            margin: 5px 0;
+            line-height: 1.5;
         }
 
         .price {
-            font-size: 22px;
+            font-size: 23px;
             font-weight: bold;
-            margin-top: 15px;
-            color: #fff;
+            margin: 15px 0;
         }
 
         button {
             width: 100%;
             padding: 16px;
-            margin-top: 15px;
-            border: none;
+            margin-top: 12px;
+            border: 0;
             border-radius: 14px;
-            background: #fff;
+            background: white;
             color: #111;
             font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
+            font-weight: bold;
         }
 
         button:active {
-            transform: scale(0.97);
+            transform: scale(.97);
         }
 
         .secondary {
             background: #242429;
-            color: #fff;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back {
+            margin-bottom: 15px;
         }
 
         .footer {
@@ -102,41 +105,74 @@
 
 <div class="container">
 
-    <div class="logo">
-        <h1>⚡ Fizshopka</h1>
-        <p>Магазин номеров</p>
-    </div>
+    <!-- ГЛАВНАЯ -->
 
-    <div class="product">
-        <h2>🇺🇸 Номер США</h2>
-        <p>Виртуальный номер США</p>
+    <div id="home">
 
-        <div class="price">
-            ⭐ 75 Stars
+        <div class="logo">
+            <h1>⚡ Fizshopka</h1>
+            <p>Магазин номеров</p>
         </div>
 
-        <button onclick="buyUSA()">
-            🛒 Купить за 75 ⭐
-        </button>
+        <div class="product">
+            <h2>🇺🇸 Номер США</h2>
+            <p>Виртуальный номер США</p>
+
+            <div class="price">
+                ⭐ 75 Stars
+            </div>
+
+            <button onclick="openPayment()">
+                🛒 Купить
+            </button>
+        </div>
+
+        <div class="product">
+            <h2>💰 Прайс</h2>
+            <button class="secondary" onclick="showPrice()">
+                Открыть прайс
+            </button>
+        </div>
+
+        <div class="product">
+            <h2>💬 Поддержка</h2>
+            <button class="secondary" onclick="support()">
+                Поддержка
+            </button>
+        </div>
+
     </div>
 
-    <div class="product">
-        <h2>💰 Прайс</h2>
-        <p>Другие товары и актуальные цены</p>
 
-        <button class="secondary" onclick="price()">
-            💰 Открыть прайс
+    <!-- ВЫБОР ОПЛАТЫ -->
+
+    <div id="payment" class="hidden">
+
+        <button class="secondary back" onclick="goHome()">
+            ← Назад
         </button>
+
+        <div class="logo">
+            <h1>💳 Оплата</h1>
+            <p>🇺🇸 Номер США — 75 ⭐</p>
+        </div>
+
+        <div class="product">
+
+            <h2>Выберите способ оплаты</h2>
+
+            <button onclick="starsPayment()">
+                ⭐ Telegram Stars
+            </button>
+
+            <button class="secondary" onclick="paypalPayment()">
+                💵 PayPal (USD)
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="product">
-        <h2>💬 Поддержка</h2>
-        <p>Возникли вопросы? Напиши нам.</p>
-
-        <button class="secondary" onclick="support()">
-            💬 Поддержка
-        </button>
-    </div>
 
     <div class="footer">
         Fizshopka © 2026
@@ -144,23 +180,60 @@
 
 </div>
 
+
 <script>
+
     const tg = window.Telegram.WebApp;
 
     tg.ready();
     tg.expand();
 
-    function buyUSA() {
-        tg.showAlert("🇺🇸 Номер США — 75 ⭐");
+
+    function openPayment() {
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("payment").classList.remove("hidden");
     }
 
-    function price() {
-        tg.showAlert("💰 Прайс скоро будет доступен!");
+
+    function goHome() {
+        document.getElementById("payment").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
     }
+
+
+    function starsPayment() {
+        tg.showAlert(
+            "⭐ Telegram Stars\n\n" +
+            "Номер США — 75 Stars\n\n" +
+            "Автоматическая оплата будет подключена следующим шагом."
+        );
+    }
+
+
+    function paypalPayment() {
+        tg.showAlert(
+            "💵 PayPal\n\n" +
+            "Оплата в USD.\n\n" +
+            "Для оплаты обратитесь в поддержку."
+        );
+    }
+
+
+    function showPrice() {
+        tg.showAlert(
+            "💰 Прайс\n\n" +
+            "🇺🇸 Номер США — 75 ⭐"
+        );
+    }
+
 
     function support() {
-        tg.showAlert("💬 Поддержка скоро будет подключена!");
+        tg.showAlert(
+            "💬 Поддержка\n\n" +
+            "Обратитесь в поддержку по вопросам заказа."
+        );
     }
+
 </script>
 
 </body>
