@@ -28,7 +28,7 @@
 
         .logo {
             text-align: center;
-            margin: 25px 0 35px;
+            margin: 25px 0 30px;
         }
 
         .logo h1 {
@@ -44,44 +44,55 @@
             background: #18181d;
             border: 1px solid #29292f;
             border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 18px;
+            margin-bottom: 12px;
         }
 
-        .product h2 {
-            margin: 0 0 8px;
+        .country {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
-        .product p {
-            color: #999;
-            line-height: 1.5;
+        .country-info {
+            flex: 1;
         }
 
-        .price {
-            font-size: 23px;
+        .country-name {
+            font-size: 19px;
             font-weight: bold;
-            margin: 15px 0;
+        }
+
+        .country-price {
+            color: #aaa;
+            margin-top: 5px;
         }
 
         button {
-            width: 100%;
-            padding: 16px;
-            margin-top: 12px;
             border: 0;
             border-radius: 14px;
             background: white;
             color: #111;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
+            padding: 13px 17px;
+            cursor: pointer;
         }
 
         button:active {
             transform: scale(.97);
         }
 
+        .buy {
+            min-width: 105px;
+        }
+
         .secondary {
+            width: 100%;
             background: #242429;
             color: white;
+            margin-top: 12px;
         }
 
         .hidden {
@@ -97,6 +108,7 @@
             color: #666;
             font-size: 13px;
             margin-top: 30px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -105,44 +117,31 @@
 
 <div class="container">
 
+    <!-- ГЛАВНАЯ -->
+
     <div id="home">
 
         <div class="logo">
             <h1>⚡ Fizshopka</h1>
-            <p>Магазин номеров</p>
+            <p>Магазин виртуальных номеров</p>
         </div>
 
-        <div class="product">
-            <h2>🇺🇸 Номер США</h2>
-            <p>Виртуальный номер США</p>
-
-            <div class="price">
-                ⭐ 75 Stars
-            </div>
-
-            <button onclick="openPayment()">
-                🛒 Купить
-            </button>
-        </div>
+        <div id="countries"></div>
 
         <div class="product">
-            <h2>💰 Прайс</h2>
-
             <button class="secondary" onclick="showPrice()">
-                Открыть прайс
+                💰 Прайс
             </button>
-        </div>
-
-        <div class="product">
-            <h2>💬 Поддержка</h2>
 
             <button class="secondary" onclick="support()">
-                Поддержка
+                💬 Поддержка
             </button>
         </div>
 
     </div>
 
+
+    <!-- ОПЛАТА -->
 
     <div id="payment" class="hidden">
 
@@ -152,18 +151,22 @@
 
         <div class="logo">
             <h1>💳 Оплата</h1>
-            <p>🇺🇸 Номер США — 75 ⭐</p>
+            <p id="selectedCountry"></p>
         </div>
 
         <div class="product">
 
             <h2>Выберите способ оплаты</h2>
 
-            <button onclick="starsPayment()">
-                ⭐ Telegram Stars
+            <button
+                class="secondary"
+                onclick="starsPayment()">
+                ⭐ Telegram Stars — 75
             </button>
 
-            <button class="secondary" onclick="paypalPayment()">
+            <button
+                class="secondary"
+                onclick="paypalPayment()">
                 💵 PayPal (USD)
             </button>
 
@@ -187,35 +190,163 @@
     tg.expand();
 
 
-    function openPayment() {
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("payment").classList.remove("hidden");
+    // =========================
+    // СТРАНЫ
+    // =========================
+
+    const countries = [
+        ["usa", "🇺🇸", "США"],
+        ["canada", "🇨🇦", "Канада"],
+        ["uk", "🇬🇧", "Великобритания"],
+        ["germany", "🇩🇪", "Германия"],
+        ["france", "🇫🇷", "Франция"],
+        ["italy", "🇮🇹", "Италия"],
+        ["spain", "🇪🇸", "Испания"],
+        ["netherlands", "🇳🇱", "Нидерланды"],
+        ["poland", "🇵🇱", "Польша"],
+        ["czech", "🇨🇿", "Чехия"],
+        ["turkey", "🇹🇷", "Турция"],
+        ["india", "🇮🇳", "Индия"],
+        ["indonesia", "🇮🇩", "Индонезия"],
+        ["brazil", "🇧🇷", "Бразилия"],
+        ["mexico", "🇲🇽", "Мексика"],
+        ["argentina", "🇦🇷", "Аргентина"],
+        ["australia", "🇦🇺", "Австралия"],
+        ["japan", "🇯🇵", "Япония"],
+        ["korea", "🇰🇷", "Южная Корея"]
+    ];
+
+
+    let selectedCountry = null;
+    let selectedCountryName = null;
+
+
+    // =========================
+    // СОЗДАНИЕ СПИСКА
+    // =========================
+
+    function renderCountries() {
+
+        const container = document.getElementById("countries");
+
+        countries.forEach(country => {
+
+            const code = country[0];
+            const flag = country[1];
+            const name = country[2];
+
+            const product = document.createElement("div");
+
+            product.className = "product";
+
+            product.innerHTML = `
+                <div class="country">
+
+                    <div class="country-info">
+
+                        <div class="country-name">
+                            ${flag} ${name}
+                        </div>
+
+                        <div class="country-price">
+                            ⭐ 75 Stars
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy"
+                        onclick="openPayment('${code}', '${flag} ${name}')">
+
+                        Купить
+
+                    </button>
+
+                </div>
+            `;
+
+            container.appendChild(product);
+
+        });
+
     }
 
+
+    renderCountries();
+
+
+    // =========================
+    // ОТКРЫТЬ ОПЛАТУ
+    // =========================
+
+    function openPayment(code, name) {
+
+        selectedCountry = code;
+        selectedCountryName = name;
+
+        document.getElementById("home")
+            .classList.add("hidden");
+
+        document.getElementById("payment")
+            .classList.remove("hidden");
+
+        document.getElementById("selectedCountry")
+            .textContent = name + " — 75 ⭐";
+    }
+
+
+    // =========================
+    // НАЗАД
+    // =========================
 
     function goHome() {
-        document.getElementById("payment").classList.add("hidden");
-        document.getElementById("home").classList.remove("hidden");
+
+        document.getElementById("payment")
+            .classList.add("hidden");
+
+        document.getElementById("home")
+            .classList.remove("hidden");
     }
 
 
-    function starsPayment() {
-    tg.openInvoice(
-        "https://t.me/$ezB9GK17uUguFgAApOs35z6smGs",
-        function(status) {
-            if (status === "paid") {
-                tg.showAlert("✅ Оплата успешно прошла!");
-            } else if (status === "cancelled") {
-                tg.showAlert("❌ Оплата отменена.");
-            } else if (status === "failed") {
-                tg.showAlert("❌ Не удалось провести оплату.");
-            } else if (status === "pending") {
-                tg.showAlert("⏳ Платёж обрабатывается.");
-            }
-        }
-    );
-}
+    // =========================
+    // TELEGRAM STARS
+    // =========================
 
+    function starsPayment() {
+
+        if (!selectedCountry) {
+            tg.showAlert("❌ Сначала выберите страну.");
+            return;
+        }
+
+        /*
+         * Передаём выбранную страну боту.
+         *
+         * Бот получит:
+         * buy_usa
+         * buy_india
+         * buy_germany
+         * и т.д.
+         */
+
+        const botUsername = "fizshopka_bot";
+
+        const startParameter = "buy_" + selectedCountry;
+
+        const url =
+            "https://t.me/" +
+            botUsername +
+            "?start=" +
+            startParameter;
+
+        tg.openTelegramLink(url);
+    }
+
+
+    // =========================
+    // PAYPAL
+    // =========================
 
     function paypalPayment() {
 
@@ -224,19 +355,25 @@
             "Оплата в USD.\n\n" +
             "Для оплаты обратитесь в поддержку."
         );
-
     }
 
+
+    // =========================
+    // ПРАЙС
+    // =========================
 
     function showPrice() {
 
         tg.showAlert(
             "💰 Прайс\n\n" +
-            "🇺🇸 Номер США — 75 ⭐"
+            "Все виртуальные номера — 75 ⭐"
         );
-
     }
 
+
+    // =========================
+    // ПОДДЕРЖКА
+    // =========================
 
     function support() {
 
@@ -244,7 +381,6 @@
             "💬 Поддержка\n\n" +
             "Обратитесь в поддержку по вопросам заказа."
         );
-
     }
 
 </script>
