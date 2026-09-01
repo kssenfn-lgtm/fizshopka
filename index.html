@@ -200,10 +200,19 @@
 
 
     function starsPayment() {
-
-        tg.sendData("buy_usa_number");
-
-    }
+    tg.openInvoice(
+        "https://t.me/$l-H4xq17uUgnFgAAYGciEKSbf9o",
+        function(status) {
+            if (status === "paid") {
+                tg.showAlert("✅ Оплата успешно прошла!");
+            } else if (status === "cancelled") {
+                tg.showAlert("❌ Оплата отменена.");
+            } else if (status === "failed") {
+                tg.showAlert("❌ Не удалось провести оплату.");
+            }
+        }
+    );
+}
 
 
     function paypalPayment() {
