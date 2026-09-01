@@ -9,19 +9,32 @@ from aiogram.types import (
     WebAppInfo,
 )
 
+
+# ==================================================
+# НАСТРОЙКИ
+# ==================================================
+
 TOKEN = "8977327110:AAGSUtOhzv2w3c0XDAmqTNu0JFNjpwVCKmc"
 
+# ТВОЙ Telegram ID
 ADMIN_ID = 1335121990
 
-# ТВОЙ ЛИЧНЫЙ TELEGRAM USERNAME БЕЗ @
+# ТВОЙ ЛИЧНЫЙ Telegram username БЕЗ @
 GIFT_USERNAME = "@zxkssen5rp"
 
+# Ссылка на Mini App
 WEB_APP_URL = "https://fizshopka-git-main-fizshopka.vercel.app"
+
 
 dp = Dispatcher()
 
+# Заказы хранятся пока бот запущен
 orders = {}
 
+
+# ==================================================
+# СТРАНЫ
+# ==================================================
 
 COUNTRIES = {
     "usa": "🇺🇸 США",
@@ -46,16 +59,16 @@ COUNTRIES = {
 }
 
 
-# =========================
-# START
-# =========================
+# ==================================================
+# /start
+# ==================================================
 
-@dp.message(F.text)
-async def message_handler(message: Message):
+@dp.message(F.text.startswith("/start"))
+async def start(message: Message):
 
     text = message.text.strip()
 
-    # Обычный /start
+    # Просто /start
     if text == "/start":
 
         keyboard = InlineKeyboardMarkup(
@@ -72,7 +85,7 @@ async def message_handler(message: Message):
         await message.answer(
             "⚡ Fizshopka\n\n"
             "Магазин виртуальных номеров.\n\n"
-            "Открой магазин кнопкой ниже.",
+            "Нажми кнопку ниже:",
             reply_markup=keyboard
         )
 
@@ -105,6 +118,7 @@ async def message_handler(message: Message):
             "status": "waiting_payment",
             "screenshots": 0,
             "number": None,
+            "code": None,
         }
 
         keyboard = InlineKeyboardMarkup(
@@ -121,156 +135,19 @@ async def message_handler(message: Message):
         await message.answer(
             f"📦 Заказ #{order_id}\n\n"
             f"{country}\n\n"
-            f"🎁 Оплата подарками:\n"
+            f"🎁 Оплата:\n"
             f"💐 Букет — 50 ⭐\n"
             f"🌹 Роза — 25 ⭐\n\n"
-            f"Итого: 75 ⭐\n\n"
-            f"После отправки подарков нажми «Я оплатил».",
+            f"Итого: 75 ⭐",
             reply_markup=keyboard
         )
 
         return
 
-    # /accept ORDER
-    if text.startswith("/accept "):
 
-        if message.from_user.id != ADMIN_ID:
-            return
-
-        order_id = text.split(maxsplit=1)[1].upper()
-
-        if order_id not in orders:
-
-            await message.answer(
-                "❌ Заказ не найден."
-            )
-
-            return
-
-        order = orders[order_id]
-
-        if order["status"] == "confirmed":
-
-            await message.answer(
-                "⚠️ Заказ уже подтверждён."
-            )
-
-            return
-
-        order["status"] = "confirmed"
-
-        await bot_global.send_message(
-            order["user_id"],
-            f"✅ Заказ #{order_id} подтверждён!\n\n"
-            f"{order['country']}\n\n"
-            f"🎁 Оплата проверена.\n"
-            f"⏳ Ожидайте выдачи номера."
-        )
-
-        await message.answer(
-            f"✅ Заказ #{order_id} подтверждён.\n"
-            f"Покупатель уведомлён."
-        )
-
-        return
-
-    # /reject ORDER
-    if text.startswith("/reject "):
-
-        if message.from_user.id != ADMIN_ID:
-            return
-
-        order_id = text.split(maxsplit=1)[1].upper()
-
-        if order_id not in orders:
-
-            await message.answer(
-                "❌ Заказ не найден."
-            )
-
-            return
-
-        order = orders[order_id]
-        order["status"] = "rejected"
-
-        await bot_global.send_message(
-            order["user_id"],
-            f"❌ Заказ #{order_id} не подтверждён.\n\n"
-            f"Проверьте отправку подарков:\n"
-            f"💐 Букет — 50 ⭐\n"
-            f"🌹 Роза — 25 ⭐\n\n"
-            f"Если это ошибка, обратитесь в поддержку."
-        )
-
-        await message.answer(
-            f"❌ Заказ #{order_id} отклонён."
-        )
-
-        return
-
-    # /send ORDER NUMBER
-    if text.startswith("/send "):
-
-        if message.from_user.id != ADMIN_ID:
-            return
-
-        parts = text.split(maxsplit=2)
-
-        if len(parts) != 3:
-
-            await message.answer(
-                "Используй:\n"
-                "/send ORDER_ID NUMBER"
-            )
-
-            return
-
-        order_id = parts[1].upper()
-        number = parts[2]
-
-        if order_id not in orders:
-
-            await message.answer(
-                "❌ Заказ не найден."
-            )
-
-            return
-
-        order = orders[order_id]
-
-        if order["status"] != "confirmed":
-
-            await message.answer(
-                "❌ Сначала подтверди оплату командой:\n"
-                f"/accept {order_id}"
-            )
-
-            return
-
-        order["number"] = number
-        order["status"] = "completed"
-
-        await bot_global.send_message(
-            order["user_id"],
-            f"✅ Ваш заказ #{order_id} готов!\n\n"
-            f"{order['country']}\n\n"
-            f"📱 Ваш номер:\n"
-            f"`{number}`\n\n"
-            f"Спасибо за покупку ❤️",
-            parse_mode="Markdown"
-        )
-
-        await message.answer(
-            f"✅ Номер отправлен покупателю.\n\n"
-            f"Заказ: #{order_id}"
-        )
-
-        return
-
-
-# =========================
-# КНОПКА «КАК ОПЛАТИТЬ»
-# =========================
+# ==================================================
+# КАК ОПЛАТИТЬ
+# ==================================================
 
 @dp.callback_query(F.data.startswith("payinfo_"))
 async def payment_info(callback):
@@ -294,7 +171,7 @@ async def payment_info(callback):
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="🎁 Открыть мой профиль",
+                    text="🎁 Открыть профиль",
                     url=f"https://t.me/{GIFT_USERNAME}"
                 )
             ],
@@ -309,21 +186,21 @@ async def payment_info(callback):
 
     await callback.message.answer(
         f"🎁 Оплата заказа #{order_id}\n\n"
-        f"Товар: {order['country']}\n\n"
+        f"{order['country']}\n\n"
         f"Отправьте на @{GIFT_USERNAME}:\n\n"
         f"💐 Букет — 50 ⭐\n"
         f"🌹 Роза — 25 ⭐\n\n"
-        f"После этого нажмите «Я оплатил».\n\n"
-        f"⚠️ Не нажимайте кнопку до фактической отправки подарков.",
+        f"После отправки обоих подарков "
+        f"нажмите «Я оплатил».",
         reply_markup=keyboard
     )
 
     await callback.answer()
 
 
-# =========================
-# ПОКУПАТЕЛЬ НАЖАЛ «Я ОПЛАТИЛ»
-# =========================
+# ==================================================
+# Я ОПЛАТИЛ
+# ==================================================
 
 @dp.callback_query(F.data.startswith("paid_"))
 async def paid_button(callback):
@@ -343,86 +220,303 @@ async def paid_button(callback):
 
     order = orders[order_id]
 
-    if order["status"] == "confirmed":
-
-        await callback.answer(
-            "Заказ уже подтверждён.",
-            show_alert=True
-        )
-
-        return
-
     order["status"] = "waiting_screenshots"
 
     await callback.message.answer(
         f"📸 Заказ #{order_id}\n\n"
-        f"Теперь отправь сюда **скриншоты** "
-        f"отправленных подарков.\n\n"
-        f"Нужно показать:\n"
-        f"💐 Букет — 50 ⭐\n"
-        f"🌹 Роза — 25 ⭐",
-        parse_mode="Markdown"
+        f"Отправь сюда скриншоты оплаты.\n\n"
+        f"Нужно показать отправку:\n"
+        f"💐 Букета — 50 ⭐\n"
+        f"🌹 Розы — 25 ⭐"
     )
 
     await callback.answer()
 
 
-# =========================
-# ПОЛУЧЕНИЕ ФОТО
-# =========================
+# ==================================================
+# ПОЛУЧЕНИЕ СКРИНШОТОВ
+# ==================================================
 
 @dp.message(F.photo)
 async def receive_photo(message: Message):
 
     user_id = message.from_user.id
 
-    found_order = None
+    order_id = None
 
-    for order_id, order in orders.items():
+    for oid, order in orders.items():
 
-        if order["user_id"] == user_id and order["status"] == "waiting_screenshots":
-            found_order = order_id
+        if (
+            order["user_id"] == user_id
+            and order["status"] == "waiting_screenshots"
+        ):
+            order_id = oid
             break
 
-    if not found_order:
+    if order_id is None:
 
         await message.answer(
-            "❌ Сейчас нет заказа, ожидающего скриншоты."
+            "❌ Сейчас нет заказа, "
+            "ожидающего скриншоты."
         )
 
         return
 
-    order = orders[found_order]
+    order = orders[order_id]
 
     order["screenshots"] += 1
 
     await message.answer(
-        f"📸 Скриншот {order['screenshots']} получен.\n\n"
-        f"Отправь второй скриншот, если он есть."
+        f"📸 Скриншот получен.\n"
+        f"Всего получено: {order['screenshots']}\n\n"
+        f"После отправки всех скриншотов "
+        f"ожидайте проверки."
     )
 
     await bot_global.send_photo(
         ADMIN_ID,
         message.photo[-1].file_id,
         caption=(
-            f"📸 СКРИНШОТ ОПЛАТЫ\n\n"
-            f"📦 Заказ: #{found_order}\n"
+            f"📸 НОВЫЙ СКРИНШОТ ОПЛАТЫ\n\n"
+            f"📦 Заказ: #{order_id}\n"
             f"{order['country']}\n\n"
             f"👤 ID: {order['user_id']}\n"
-            f"👤 Username: @{order['username'] or 'нет'}\n\n"
-            f"Скриншотов получено: {order['screenshots']}\n\n"
-            f"Проверить подарки на аккаунте.\n\n"
-            f"Если всё верно:\n"
-            f"/accept {found_order}\n\n"
-            f"Если неверно:\n"
-            f"/reject {found_order}"
+            f"👤 Username: "
+            f"@{order['username'] or 'нет'}\n\n"
+            f"Скриншотов: {order['screenshots']}\n\n"
+            f"Проверь подарки на своём аккаунте.\n\n"
+            f"Подтвердить:\n"
+            f"/accept {order_id}\n\n"
+            f"Отклонить:\n"
+            f"/reject {order_id}"
         )
     )
 
 
-# =========================
+# ==================================================
+# /accept ORDER_ID
+# ==================================================
+
+@dp.message(F.text.startswith("/accept "))
+async def accept_order(message: Message):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    parts = message.text.split(maxsplit=1)
+
+    if len(parts) != 2:
+
+        await message.answer(
+            "Используй:\n"
+            "/accept ORDER_ID"
+        )
+
+        return
+
+    order_id = parts[1].upper()
+
+    if order_id not in orders:
+
+        await message.answer(
+            "❌ Заказ не найден."
+        )
+
+        return
+
+    order = orders[order_id]
+
+    if order["status"] == "confirmed":
+
+        await message.answer(
+            "⚠️ Заказ уже подтверждён."
+        )
+
+        return
+
+    order["status"] = "confirmed"
+
+    await bot_global.send_message(
+        order["user_id"],
+        f"✅ Заказ #{order_id} подтверждён!\n\n"
+        f"{order['country']}\n\n"
+        f"🎁 Оплата проверена.\n"
+        f"⏳ Ожидайте выдачи номера."
+    )
+
+    await message.answer(
+        f"✅ Заказ #{order_id} подтверждён.\n"
+        f"Покупатель уведомлён."
+    )
+
+
+# ==================================================
+# /reject ORDER_ID
+# ==================================================
+
+@dp.message(F.text.startswith("/reject "))
+async def reject_order(message: Message):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    parts = message.text.split(maxsplit=1)
+
+    if len(parts) != 2:
+
+        await message.answer(
+            "Используй:\n"
+            "/reject ORDER_ID"
+        )
+
+        return
+
+    order_id = parts[1].upper()
+
+    if order_id not in orders:
+
+        await message.answer(
+            "❌ Заказ не найден."
+        )
+
+        return
+
+    order = orders[order_id]
+
+    order["status"] = "rejected"
+
+    await bot_global.send_message(
+        order["user_id"],
+        f"❌ Заказ #{order_id} не подтверждён.\n\n"
+        f"Проверьте отправку подарков.\n\n"
+        f"Если это ошибка, обратитесь в поддержку."
+    )
+
+    await message.answer(
+        f"❌ Заказ #{order_id} отклонён."
+    )
+
+
+# ==================================================
+# /send ORDER_ID NUMBER
+# ==================================================
+
+@dp.message(F.text.startswith("/send "))
+async def send_number(message: Message):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    parts = message.text.split(maxsplit=2)
+
+    if len(parts) != 3:
+
+        await message.answer(
+            "Используй:\n\n"
+            "/send ORDER_ID NUMBER\n\n"
+            "Например:\n"
+            "/send A82F91C2 +123456789"
+        )
+
+        return
+
+    order_id = parts[1].upper()
+    number = parts[2]
+
+    if order_id not in orders:
+
+        await message.answer(
+            "❌ Заказ не найден."
+        )
+
+        return
+
+    order = orders[order_id]
+
+    if order["status"] != "confirmed":
+
+        await message.answer(
+            "❌ Сначала подтверди оплату:\n\n"
+            f"/accept {order_id}"
+        )
+
+        return
+
+    order["number"] = number
+    order["status"] = "number_sent"
+
+    await bot_global.send_message(
+        order["user_id"],
+        f"📱 Номер для заказа #{order_id}\n\n"
+        f"{order['country']}\n\n"
+        f"Ваш номер:\n"
+        f"{number}\n\n"
+        f"⏳ Ожидайте код, если он потребуется."
+    )
+
+    await message.answer(
+        f"✅ Номер отправлен покупателю.\n\n"
+        f"Заказ: #{order_id}"
+    )
+
+
+# ==================================================
+# /code ORDER_ID CODE
+# ==================================================
+
+@dp.message(F.text.startswith("/code "))
+async def send_code(message: Message):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    parts = message.text.split(maxsplit=2)
+
+    if len(parts) != 3:
+
+        await message.answer(
+            "Используй:\n\n"
+            "/code ORDER_ID CODE\n\n"
+            "Например:\n"
+            "/code A82F91C2 12345"
+        )
+
+        return
+
+    order_id = parts[1].upper()
+    code = parts[2]
+
+    if order_id not in orders:
+
+        await message.answer(
+            "❌ Заказ не найден."
+        )
+
+        return
+
+    order = orders[order_id]
+
+    order["code"] = code
+
+    await bot_global.send_message(
+        order["user_id"],
+        f"🔐 Код для заказа #{order_id}\n\n"
+        f"{order['country']}\n\n"
+        f"Код:\n"
+        f"`{code}`\n\n"
+        f"⚠️ Никому не передавайте этот код.",
+        parse_mode="Markdown"
+    )
+
+    await message.answer(
+        f"✅ Код отправлен покупателю.\n\n"
+        f"📦 Заказ: #{order_id}"
+    )
+
+
+# ==================================================
 # ЗАПУСК
-# =========================
+# ==================================================
 
 bot_global = None
 
