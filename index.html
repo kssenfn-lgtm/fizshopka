@@ -105,8 +105,6 @@
 
 <div class="container">
 
-    <!-- ГЛАВНАЯ -->
-
     <div id="home">
 
         <div class="logo">
@@ -129,6 +127,7 @@
 
         <div class="product">
             <h2>💰 Прайс</h2>
+
             <button class="secondary" onclick="showPrice()">
                 Открыть прайс
             </button>
@@ -136,6 +135,7 @@
 
         <div class="product">
             <h2>💬 Поддержка</h2>
+
             <button class="secondary" onclick="support()">
                 Поддержка
             </button>
@@ -143,8 +143,6 @@
 
     </div>
 
-
-    <!-- ВЫБОР ОПЛАТЫ -->
 
     <div id="payment" class="hidden">
 
@@ -202,32 +200,40 @@
 
 
     function starsPayment() {
-    tg.sendData("buy_usa_number");
-}
+
+        tg.sendData("buy_usa_number");
+
+    }
 
 
     function paypalPayment() {
+
         tg.showAlert(
             "💵 PayPal\n\n" +
             "Оплата в USD.\n\n" +
             "Для оплаты обратитесь в поддержку."
         );
+
     }
 
 
     function showPrice() {
+
         tg.showAlert(
             "💰 Прайс\n\n" +
             "🇺🇸 Номер США — 75 ⭐"
         );
+
     }
 
 
     function support() {
+
         tg.showAlert(
             "💬 Поддержка\n\n" +
             "Обратитесь в поддержку по вопросам заказа."
         );
+
     }
 
 </script>
