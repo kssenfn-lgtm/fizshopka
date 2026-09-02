@@ -14,7 +14,7 @@ from aiogram.types import (
 # НАСТРОЙКИ
 # ==================================================
 
-TOKEN = "ВСТАВЬ_НОВЫЙ_ТОКЕН"
+TOKEN = "8AmqTNu0JFNjpwVCKmc"
 
 # ТВОЙ Telegram ID
 ADMIN_ID = 1335121990
@@ -84,7 +84,7 @@ async def start(message: Message):
 
         await message.answer(
             "⚡ Fizshopka\n\n"
-            "Магазин физ номеров.\n\n"
+            "Магазин виртуальных номеров.\n\n"
             "Нажми кнопку ниже:",
             reply_markup=keyboard
         )
