@@ -23,14 +23,15 @@
 
         :root {
             --bg: #050507;
-            --panel: rgba(18, 18, 24, 0.72);
-            --panel2: rgba(255,255,255,0.045);
-            --border: rgba(255,255,255,0.09);
-            --text: #ffffff;
+            --card: rgba(18, 18, 24, .72);
+            --card2: rgba(255,255,255,.045);
+            --border: rgba(255,255,255,.085);
+            --text: #fff;
             --muted: #92929d;
-            --purple: #8a63ff;
-            --blue: #4ecbff;
-            --pink: #ff4fd8;
+            --purple: #8d69ff;
+            --blue: #49caff;
+            --green: #63f69a;
+            --yellow: #ffd15c;
         }
 
         html {
@@ -39,8 +40,9 @@
 
         body {
             margin: 0;
-            padding: 14px;
+            padding: 12px;
             min-height: 100vh;
+            overflow-x: hidden;
 
             font-family:
                 Inter,
@@ -49,411 +51,279 @@
                 sans-serif;
 
             color: var(--text);
-            background: #050507;
-
-            overflow-x: hidden;
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(126, 85, 255, .16),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 100% 35%,
+                    rgba(0, 177, 255, .11),
+                    transparent 26%
+                ),
+                #050507;
         }
 
-        /* ==========================================
-           GLOBAL BACKGROUND
-        ========================================== */
+        button {
+            font-family: inherit;
+            -webkit-appearance: none;
+        }
 
-        .background {
+        button:focus {
+            outline: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* ==================================================
+           BACKGROUND
+        ================================================== */
+
+        .bg {
             position: fixed;
             inset: 0;
-            overflow: hidden;
             pointer-events: none;
+            overflow: hidden;
             z-index: -10;
         }
 
-        .background::before {
-            content: "FIZSHOPKA FIZSHOPKA FIZSHOPKA";
-
+        .bg-text {
             position: absolute;
+            width: 180%;
+            left: -40%;
+            top: 27%;
 
-            width: 160%;
-            left: -30%;
-            top: 23%;
-
-            font-size: clamp(55px, 15vw, 130px);
-            font-weight: 900;
-            line-height: 1.2;
-
+            font-size: clamp(65px, 19vw, 145px);
+            font-weight: 950;
             letter-spacing: 10px;
+            line-height: 1.1;
             white-space: nowrap;
 
-            color: rgba(255,255,255,0.018);
+            color: rgba(255,255,255,.016);
 
-            transform: rotate(-12deg);
+            transform: rotate(-11deg);
 
             animation:
-                backgroundText 18s linear infinite;
+                bgMove 18s ease-in-out infinite alternate;
         }
 
-        .background::after {
-            content: "FIZSHOPKA";
-
-            position: absolute;
-
-            left: 50%;
-            top: 53%;
-
-            transform:
-                translate(-50%, -50%)
-                rotate(-90deg);
-
-            font-size: clamp(90px, 26vw, 240px);
-            font-weight: 900;
-
-            white-space: nowrap;
-
-            color: rgba(131,96,255,0.018);
-            letter-spacing: 16px;
-        }
-
-        @keyframes backgroundText {
+        @keyframes bgMove {
 
             0% {
-                transform:
-                    translateX(0)
-                    rotate(-12deg);
-            }
-
-            50% {
-                transform:
-                    translateX(-9%)
-                    rotate(-12deg);
+                transform: translateX(0) rotate(-11deg);
             }
 
             100% {
-                transform:
-                    translateX(0)
-                    rotate(-12deg);
+                transform: translateX(-9%) rotate(-11deg);
             }
 
         }
 
-
-        /* ==========================================
-           GLOW ORBS
-        ========================================== */
-
-        .glow {
+        .orb {
             position: absolute;
             border-radius: 50%;
             filter: blur(85px);
-            will-change: transform;
+            opacity: .32;
         }
 
-        .glow.one {
+        .orb1 {
             width: 290px;
             height: 290px;
-            left: -130px;
-            top: -80px;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(122,83,255,0.30),
-                    transparent 70%
-                );
+            top: -120px;
+            left: -120px;
+            background: #7048ff;
 
             animation:
-                glowOne 12s ease-in-out infinite alternate;
+                orb1 12s ease-in-out infinite alternate;
         }
 
-        .glow.two {
+        .orb2 {
             width: 330px;
             height: 330px;
-            right: -170px;
-            top: 28%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(0,174,255,0.22),
-                    transparent 70%
-                );
+            top: 30%;
+            right: -160px;
+            background: #009dff;
 
             animation:
-                glowTwo 15s ease-in-out infinite alternate;
+                orb2 15s ease-in-out infinite alternate;
         }
 
-        .glow.three {
-            width: 300px;
-            height: 300px;
+        .orb3 {
+            width: 260px;
+            height: 260px;
+            bottom: -140px;
             left: 20%;
-            bottom: -170px;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,72,216,0.13),
-                    transparent 70%
-                );
+            background: #a63fff;
 
             animation:
-                glowThree 14s ease-in-out infinite alternate;
+                orb3 13s ease-in-out infinite alternate;
         }
 
-        @keyframes glowOne {
+        @keyframes orb1 {
 
             0% {
-                transform:
-                    translate(0,0)
-                    scale(1);
+                transform: translate(0,0) scale(1);
             }
 
             100% {
-                transform:
-                    translate(150px,120px)
-                    scale(1.35);
+                transform: translate(140px,100px) scale(1.3);
             }
 
         }
 
-        @keyframes glowTwo {
+        @keyframes orb2 {
 
             0% {
-                transform:
-                    translate(0,0)
-                    scale(.9);
+                transform: translate(0,0) scale(.9);
             }
 
             100% {
-                transform:
-                    translate(-120px,-100px)
-                    scale(1.25);
+                transform: translate(-120px,-90px) scale(1.22);
             }
 
         }
 
-        @keyframes glowThree {
+        @keyframes orb3 {
 
             0% {
-                transform:
-                    translate(0,0)
-                    scale(1);
+                transform: translate(0,0);
             }
 
             100% {
-                transform:
-                    translate(110px,-100px)
-                    scale(1.18);
+                transform: translate(80px,-100px) scale(1.18);
             }
 
         }
 
 
-        /* ==========================================
-           GRID LIGHT
-        ========================================== */
-
-        .grid {
-            position: absolute;
-            inset: 0;
-
-            background-image:
-                linear-gradient(
-                    rgba(255,255,255,0.018) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,0.018) 1px,
-                    transparent 1px
-                );
-
-            background-size: 45px 45px;
-
-            mask-image:
-                linear-gradient(
-                    to bottom,
-                    rgba(0,0,0,.8),
-                    transparent 90%
-                );
-
-            opacity: .7;
-        }
-
-
-        /* ==========================================
-           PARTICLES
-        ========================================== */
-
-        .particles {
-            position: absolute;
-            inset: 0;
-        }
-
-        .particle {
-            position: absolute;
-
-            width: 2px;
-            height: 2px;
-
-            border-radius: 50%;
-
-            background: rgba(255,255,255,.75);
-
-            box-shadow:
-                0 0 10px rgba(255,255,255,.5);
-
-            animation:
-                particleMove linear infinite;
-        }
-
-        @keyframes particleMove {
-
-            from {
-                transform:
-                    translateY(110vh)
-                    translateX(0);
-
-                opacity: 0;
-            }
-
-            15% {
-                opacity: .7;
-            }
-
-            85% {
-                opacity: .7;
-            }
-
-            to {
-                transform:
-                    translateY(-15vh)
-                    translateX(50px);
-
-                opacity: 0;
-            }
-
-        }
-
-
-        /* ==========================================
+        /* ==================================================
            CONTAINER
-        ========================================== */
+        ================================================== */
 
         .container {
             width: 100%;
             max-width: 520px;
-            margin: 0 auto;
-            position: relative;
+            margin: auto;
         }
 
 
-        /* ==========================================
-           TOP BRAND
-        ========================================== */
+        /* ==================================================
+           TOP BAR
+        ================================================== */
 
-        .brand {
-            margin-top: 16px;
-            margin-bottom: 18px;
-
+        .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            animation: appear .65s ease both;
+            margin:
+                7px
+                2px
+                15px;
+
+            animation:
+                appearTop .6s ease both;
         }
 
-        .brand-left {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .brand-logo {
-            width: 48px;
-            height: 48px;
+        .brand-icon {
+            width: 46px;
+            height: 46px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 16px;
+            border-radius: 15px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(138,99,255,.30),
-                    rgba(78,203,255,.13)
+                    rgba(141,105,255,.27),
+                    rgba(73,202,255,.12)
                 );
 
             border:
                 1px solid
-                rgba(255,255,255,.10);
+                rgba(255,255,255,.09);
 
             box-shadow:
-                0 0 30px
-                rgba(125,90,255,.18);
+                0 0 26px
+                rgba(112,80,255,.16);
 
             animation:
-                logoFloat 3.4s ease-in-out infinite;
+                logoFloat 3s ease-in-out infinite;
         }
 
-        .brand-logo span {
+        .brand-icon span {
             font-size: 23px;
         }
 
-        .brand-name {
-            font-size: 19px;
-            font-weight: 900;
-            letter-spacing: -.4px;
+        .brand-title {
+            font-size: 17px;
+            font-weight: 950;
         }
 
-        .brand-sub {
-            margin-top: 3px;
-            font-size: 12px;
-            color: var(--muted);
+        .brand-subtitle {
+            color: #777781;
+            font-size: 10px;
+            margin-top: 2px;
         }
 
-        .status {
+        .online {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
 
-            padding: 8px 11px;
+            padding: 7px 10px;
 
             border-radius: 999px;
 
             background:
-                rgba(255,255,255,.045);
+                rgba(255,255,255,.038);
 
             border:
                 1px solid
                 rgba(255,255,255,.06);
 
-            color: #bcbcc5;
-            font-size: 11px;
+            color: #a6a6af;
+            font-size: 10px;
+            font-weight: 800;
         }
 
-        .status-dot {
+        .online-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #65ff9a;
+            background: var(--green);
 
             box-shadow:
-                0 0 10px
-                rgba(101,255,154,.7);
+                0 0 11px
+                rgba(99,246,154,.72);
 
             animation:
-                statusPulse 1.8s ease-in-out infinite;
+                onlinePulse 1.8s ease-in-out infinite;
         }
 
-        @keyframes statusPulse {
+        @keyframes onlinePulse {
 
-            0%, 100% {
+            0%,100% {
                 opacity: .55;
                 transform: scale(.85);
             }
 
             50% {
                 opacity: 1;
-                transform: scale(1.15);
+                transform: scale(1.12);
             }
 
         }
@@ -471,26 +341,22 @@
         }
 
 
-        /* ==========================================
+        /* ==================================================
            HERO
-        ========================================== */
+        ================================================== */
 
         .hero {
             position: relative;
 
-            margin-top: 10px;
-            margin-bottom: 16px;
+            padding: 23px 19px 20px;
+            margin-bottom: 14px;
 
-            padding: 25px 21px 22px;
-
-            border-radius: 28px;
-
-            overflow: hidden;
+            border-radius: 27px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,.085),
+                    rgba(255,255,255,.075),
                     rgba(255,255,255,.025)
                 );
 
@@ -498,17 +364,19 @@
                 1px solid
                 rgba(255,255,255,.095);
 
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
 
             box-shadow:
                 0 24px 70px
-                rgba(0,0,0,.28),
+                rgba(0,0,0,.25),
                 inset 0 1px 0
-                rgba(255,255,255,.05);
+                rgba(255,255,255,.045);
+
+            overflow: hidden;
 
             animation:
-                heroIn .75s ease both;
+                heroIn .7s ease both;
         }
 
         .hero::before {
@@ -516,25 +384,23 @@
 
             position: absolute;
 
-            width: 220px;
-            height: 220px;
+            width: 230px;
+            height: 230px;
 
-            right: -100px;
-            top: -110px;
+            right: -120px;
+            top: -130px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(142,102,255,.25),
-                    transparent 68%
+                    rgba(133,97,255,.24),
+                    transparent 70%
                 );
 
-            filter: blur(10px);
-
             animation:
-                heroOrb 7s ease-in-out infinite alternate;
+                heroGlow 7s ease-in-out infinite alternate;
         }
 
         .hero::after {
@@ -542,54 +408,58 @@
 
             position: absolute;
 
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
 
-            left: -100px;
             bottom: -120px;
+            left: -100px;
 
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(0,175,255,.15),
+                    rgba(0,175,255,.13),
                     transparent 70%
                 );
         }
 
-        .hero-badge {
+        .hero-content {
             position: relative;
             z-index: 1;
+        }
 
+        .hero-pill {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
 
-            padding: 8px 12px;
+            padding: 8px 11px;
 
             border-radius: 999px;
 
             background:
-                rgba(255,255,255,.055);
+                rgba(255,255,255,.05);
 
             border:
                 1px solid
                 rgba(255,255,255,.07);
 
-            color: #c7c7d0;
+            color: #bdbdc6;
 
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 850;
         }
 
         .hero-title {
-            position: relative;
-            z-index: 1;
+            margin:
+                15px
+                0
+                8px;
 
-            margin: 17px 0 8px;
+            font-size:
+                clamp(31px, 8.5vw, 46px);
 
-            font-size: clamp(30px, 8vw, 46px);
             line-height: .98;
 
             font-weight: 950;
@@ -599,8 +469,8 @@
                 linear-gradient(
                     100deg,
                     #fff,
-                    #bcaaff,
-                    #79d8ff,
+                    #bdaeff,
+                    #73dcff,
                     #fff
                 );
 
@@ -610,40 +480,56 @@
             -webkit-text-fill-color: transparent;
 
             animation:
-                heroGradient 5s linear infinite;
+                titleGradient 5s linear infinite;
         }
 
         .hero-text {
-            position: relative;
-            z-index: 1;
-
-            color: #9c9ca6;
-            font-size: 14px;
-            line-height: 1.6;
-
             max-width: 370px;
+
+            color: #9999a4;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .hero-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 17px;
         }
 
         .hero-price {
-            position: relative;
-            z-index: 1;
-
-            display: inline-flex;
+            display: flex;
             align-items: baseline;
             gap: 6px;
-
-            margin-top: 17px;
-
-            font-weight: 900;
         }
 
-        .hero-price-big {
-            font-size: 29px;
+        .hero-price strong {
+            font-size: 27px;
         }
 
-        .hero-price-small {
-            color: #92929c;
-            font-size: 13px;
+        .hero-price span {
+            color: #7f7f89;
+            font-size: 11px;
+        }
+
+        .mini-badge {
+            padding: 8px 10px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(99,246,154,.06);
+
+            border:
+                1px solid
+                rgba(99,246,154,.10);
+
+            color: #8adca9;
+
+            font-size: 10px;
+            font-weight: 850;
         }
 
         @keyframes heroIn {
@@ -652,7 +538,7 @@
                 opacity: 0;
                 transform:
                     translateY(18px)
-                    scale(.98);
+                    scale(.985);
             }
 
             to {
@@ -664,7 +550,7 @@
 
         }
 
-        @keyframes heroGradient {
+        @keyframes titleGradient {
 
             from {
                 background-position: 0 center;
@@ -676,7 +562,7 @@
 
         }
 
-        @keyframes heroOrb {
+        @keyframes heroGlow {
 
             from {
                 transform:
@@ -686,307 +572,145 @@
 
             to {
                 transform:
-                    translate(-35px,40px)
-                    scale(1.22);
+                    translate(-35px,45px)
+                    scale(1.25);
             }
 
         }
 
 
-        /* ==========================================
-           MARQUEE
-        ========================================== */
+        /* ==================================================
+           NOTICE
+        ================================================== */
 
-        .marquee {
-            margin:
-                5px
-                -14px
-                18px;
+        .notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
 
-            overflow: hidden;
+            padding: 13px;
 
-            border-top:
-                1px solid
-                rgba(255,255,255,.04);
+            margin-bottom: 16px;
 
-            border-bottom:
-                1px solid
-                rgba(255,255,255,.04);
+            border-radius: 18px;
 
             background:
-                rgba(255,255,255,.018);
-        }
+                linear-gradient(
+                    135deg,
+                    rgba(255,190,72,.06),
+                    rgba(255,255,255,.025)
+                );
 
-        .marquee-track {
-            display: flex;
-            width: max-content;
+            border:
+                1px solid
+                rgba(255,198,84,.09);
 
             animation:
-                marquee 17s linear infinite;
+                cardIn .6s .1s ease both;
         }
 
-        .marquee span {
-            padding: 11px 15px;
+        .notice-icon {
+            font-size: 19px;
+        }
 
-            color:
-                rgba(255,255,255,.34);
+        .notice-title {
+            font-size: 12px;
+            font-weight: 900;
+        }
 
+        .notice-text {
+            margin-top: 3px;
+
+            color: #82828c;
             font-size: 10px;
-            font-weight: 800;
-
-            letter-spacing: 2px;
-            white-space: nowrap;
-        }
-
-        @keyframes marquee {
-
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-
+            line-height: 1.5;
         }
 
 
-        /* ==========================================
-           SECTION TITLE
-        ========================================== */
+        /* ==================================================
+           SECTION
+        ================================================== */
+
+        .section {
+            margin-top: 17px;
+        }
 
         .section-head {
             display: flex;
-            align-items: end;
+            align-items: center;
             justify-content: space-between;
 
             margin:
+                0
                 3px
-                4px
                 10px;
         }
 
         .section-title {
             font-size: 16px;
-            font-weight: 900;
+            font-weight: 950;
         }
 
-        .section-note {
-            color: #6e6e78;
-            font-size: 11px;
+        .section-right {
+            color: #676771;
+            font-size: 10px;
         }
 
 
-        /* ==========================================
-           COUNTRY CARDS
-        ========================================== */
+        /* ==================================================
+           FEATURED BUY BUTTON
+        ================================================== */
 
-        .product {
+        .buy-main {
             position: relative;
 
-            padding: 16px;
-            margin-bottom: 11px;
+            width: 100%;
 
-            border-radius: 21px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.065),
-                    rgba(255,255,255,.022)
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.075);
-
-            backdrop-filter:
-                blur(20px);
-
-            -webkit-backdrop-filter:
-                blur(20px);
-
-            box-shadow:
-                0 12px 42px
-                rgba(0,0,0,.24),
-                inset 0 1px 0
-                rgba(255,255,255,.03);
-
-            overflow: hidden;
-
-            animation:
-                cardIn .6s ease both;
-
-            transition:
-                transform .22s ease,
-                border-color .22s ease,
-                box-shadow .22s ease;
-        }
-
-        .product:hover {
-            transform: translateY(-3px);
-
-            border-color:
-                rgba(145,112,255,.18);
-
-            box-shadow:
-                0 19px 55px
-                rgba(0,0,0,.30),
-                0 0 22px
-                rgba(120,90,255,.045);
-        }
-
-        .product::before {
-            content: "";
-
-            position: absolute;
-
-            width: 110px;
-            height: 110px;
-
-            right: -75px;
-            top: -70px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(127,95,255,.18),
-                    transparent 70%
-                );
-        }
-
-        @keyframes cardIn {
-
-            from {
-                opacity: 0;
-                transform:
-                    translateY(13px)
-                    scale(.987);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-
-        }
-
-
-        .country {
-            position: relative;
-            z-index: 1;
+            min-height: 62px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            gap: 12px;
-        }
+            padding: 13px 15px;
 
-        .country-info {
-            flex: 1;
-            min-width: 0;
-        }
+            border: 1px solid
+                rgba(145,112,255,.18);
 
-        .country-name {
-            font-size: 18px;
-            font-weight: 900;
-        }
+            border-radius: 20px;
 
-        .country-price {
-            margin-top: 5px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(126,91,255,.20),
+                    rgba(0,157,255,.07)
+                );
 
-            color: #8f8f99;
-            font-size: 12px;
-        }
+            color: #fff;
 
+            overflow: hidden;
 
-        /* ==========================================
-           BUTTONS
-        ========================================== */
-
-        button {
-            position: relative;
-
-            border: 0;
-            border-radius: 14px;
-
-            min-height: 45px;
-            padding: 12px 16px;
-
-            font-size: 15px;
-            font-weight: 900;
+            box-shadow:
+                0 12px 42px
+                rgba(85,65,190,.12);
 
             cursor: pointer;
 
             transition:
-                transform .17s ease,
-                box-shadow .22s ease,
-                filter .22s ease;
+                transform .18s ease,
+                box-shadow .22s ease;
         }
 
-        button:active {
-            transform: scale(.95);
-        }
-
-        .buy {
-            min-width: 98px;
-
-            color: #111;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffffff,
-                    #e7e7ec
-                );
-
-            box-shadow:
-                0 8px 25px
-                rgba(255,255,255,.06);
-        }
-
-        .buy:hover {
-            filter: brightness(1.07);
-
-            box-shadow:
-                0 10px 30px
-                rgba(255,255,255,.12);
-        }
-
-        .secondary {
-            width: 100%;
-
-            color: #fff;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(255,255,255,.075),
-                    rgba(255,255,255,.028)
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.075);
-
-            overflow: hidden;
-        }
-
-        .secondary::after {
+        .buy-main::before {
             content: "";
 
             position: absolute;
 
             top: -100%;
-            left: -100%;
+            left: -70%;
 
-            width: 65px;
-            height: 260%;
+            width: 70px;
+            height: 300%;
 
             transform: rotate(20deg);
 
@@ -994,27 +718,84 @@
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(255,255,255,.10),
+                    rgba(255,255,255,.14),
                     transparent
                 );
 
             animation:
-                buttonShine 4.7s ease-in-out infinite;
+                buttonSweep 4s ease-in-out infinite;
         }
 
-        .secondary:hover {
+        .buy-main:active {
+            transform: scale(.97);
+        }
+
+        .buy-main:hover {
+            box-shadow:
+                0 15px 50px
+                rgba(95,70,215,.19);
+        }
+
+        .buy-main-left {
+            position: relative;
+            z-index: 1;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .buy-main-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
             background:
-                linear-gradient(
-                    135deg,
-                    rgba(130,98,255,.15),
-                    rgba(0,164,255,.07)
-                );
+                rgba(255,255,255,.09);
+
+            font-size: 21px;
         }
 
-        @keyframes buttonShine {
+        .buy-main-title {
+            font-size: 14px;
+            font-weight: 950;
+        }
+
+        .buy-main-sub {
+            margin-top: 3px;
+
+            color: #9995ae;
+            font-size: 10px;
+        }
+
+        .buy-main-arrow {
+            position: relative;
+            z-index: 1;
+
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,.08);
+
+            font-size: 16px;
+        }
+
+        @keyframes buttonSweep {
 
             0% {
-                left: -100%;
+                left: -80%;
             }
 
             40%,100% {
@@ -1024,13 +805,178 @@
         }
 
 
-        /* ==========================================
-           MENU
-        ========================================== */
+        /* ==================================================
+           COUNTRY PAGE
+        ================================================== */
 
-        .menu {
-            margin-top: 15px;
+        .countries-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
+
+        .country-card {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            min-height: 70px;
+
+            padding: 13px 14px;
+
+            border-radius: 19px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.075);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.06),
+                    rgba(255,255,255,.022)
+                );
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            overflow: hidden;
+
+            animation:
+                cardIn .55s ease both;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+        }
+
+        .country-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+            height: 80px;
+
+            right: -50px;
+            top: -50px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(130,98,255,.16),
+                    transparent 70%
+                );
+        }
+
+        .country-card:hover {
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(138,105,255,.17);
+        }
+
+        .country-info {
+            position: relative;
+            z-index: 1;
+
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .country-flag {
+            font-size: 25px;
+        }
+
+        .country-name {
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .country-price {
+            margin-top: 4px;
+
+            color: #767680;
+            font-size: 10px;
+        }
+
+        .country-buy {
+            position: relative;
+            z-index: 2;
+
+            min-width: 83px;
+            min-height: 40px;
+
+            padding: 10px 12px;
+
+            border: 0;
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff,
+                    #e7e7ed
+                );
+
+            color: #111;
+
+            font-size: 12px;
+            font-weight: 950;
+
+            cursor: pointer;
+        }
+
+        .country-buy:active {
+            transform: scale(.95);
+        }
+
+
+        /* ==================================================
+           GENERIC CARD
+        ================================================== */
+
+        .card {
+            position: relative;
+
+            padding: 17px;
+
+            border-radius: 21px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.065),
+                    rgba(255,255,255,.023)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.075);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,.22),
+                inset 0 1px 0
+                rgba(255,255,255,.03);
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           MENU
+        ================================================== */
 
         .menu-grid {
             display: grid;
@@ -1041,39 +987,42 @@
         .menu-card {
             position: relative;
 
-            min-height: 104px;
+            min-height: 105px;
 
-            padding: 15px;
+            padding: 14px;
 
-            border-radius: 20px;
+            text-align: left;
+
+            border: 1px solid
+                rgba(255,255,255,.075);
+
+            border-radius: 19px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,.065),
-                    rgba(255,255,255,.025)
+                    rgba(255,255,255,.06),
+                    rgba(255,255,255,.022)
                 );
 
-            border:
-                1px solid
-                rgba(255,255,255,.075);
-
-            text-align: left;
+            color: #fff;
 
             overflow: hidden;
 
-            box-shadow:
-                0 12px 35px
-                rgba(0,0,0,.20);
+            cursor: pointer;
+
+            transition:
+                transform .18s ease,
+                border-color .18s ease;
         }
 
-        .menu-card::before {
+        .menu-card::after {
             content: "";
 
             position: absolute;
 
-            width: 85px;
-            height: 85px;
+            width: 75px;
+            height: 75px;
 
             right: -40px;
             bottom: -40px;
@@ -1083,89 +1032,163 @@
             background:
                 radial-gradient(
                     circle,
-                    rgba(132,95,255,.15),
+                    rgba(130,98,255,.15),
                     transparent 70%
                 );
         }
 
+        .menu-card:active {
+            transform: scale(.97);
+        }
+
+        .menu-card:hover {
+            border-color:
+                rgba(138,105,255,.18);
+        }
+
         .menu-icon {
-            font-size: 25px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 12px;
         }
 
         .menu-name {
-            font-size: 14px;
-            font-weight: 900;
+            font-size: 13px;
+            font-weight: 950;
         }
 
-        .menu-small {
+        .menu-description {
             margin-top: 4px;
 
-            color: #777781;
+            color: #72727c;
+            font-size: 9px;
+            line-height: 1.4;
+        }
+
+
+        /* ==================================================
+           PAGE HEADER
+        ================================================== */
+
+        .page-head {
+            margin:
+                12px
+                2px
+                14px;
+
+            animation:
+                appearTop .55s ease both;
+        }
+
+        .page-head-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-head-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(132,97,255,.22),
+                    rgba(0,163,255,.10)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            font-size: 21px;
+        }
+
+        .page-head-title {
+            font-size: 21px;
+            font-weight: 950;
+        }
+
+        .page-head-sub {
+            margin-top: 3px;
+
+            color: #72727c;
             font-size: 10px;
         }
 
 
-        /* ==========================================
-           PAGES
-        ========================================== */
-
-        .page {
-            animation:
-                pageIn .55s ease both;
-        }
-
-        .hidden {
-            display: none;
-        }
+        /* ==================================================
+           BACK BUTTON
+        ================================================== */
 
         .back {
-            margin-bottom: 15px;
+            width: 100%;
+            min-height: 43px;
+
+            margin-bottom: 11px;
+
+            border: 1px solid
+                rgba(255,255,255,.07);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #d8d8de;
+
+            font-size: 12px;
+            font-weight: 850;
         }
 
 
-        /* ==========================================
+        /* ==================================================
            PRICE
-        ========================================== */
+        ================================================== */
 
-        .price-card {
+        .price-center {
             text-align: center;
         }
 
         .price-label {
-            color: #85858f;
-            font-size: 13px;
+            color: #81818b;
+            font-size: 11px;
         }
 
         .price-big {
             margin-top: 4px;
 
-            font-size: 54px;
-            line-height: 1;
+            font-size: 55px;
+            line-height: .95;
 
             font-weight: 950;
             letter-spacing: -2px;
 
             background:
                 linear-gradient(
-                    90deg,
+                    100deg,
                     #fff,
-                    #bdaeff,
-                    #75ddff
+                    #c0adff,
+                    #72ddff
                 );
 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
             animation:
-                priceGlow 3s ease-in-out infinite;
+                pricePulse 3s ease-in-out infinite;
         }
 
-        .price-under {
+        .price-sub {
             margin-top: 8px;
 
-            color: #777782;
-            font-size: 12px;
+            color: #74747f;
+            font-size: 10px;
         }
 
         .price-row {
@@ -1173,64 +1196,66 @@
             align-items: center;
             justify-content: space-between;
 
-            margin-top: 10px;
-            padding: 14px;
+            padding: 13px;
 
-            border-radius: 17px;
+            margin-top: 10px;
+
+            border-radius: 16px;
 
             background:
-                rgba(255,255,255,.038);
+                rgba(255,255,255,.037);
 
             border:
                 1px solid
                 rgba(255,255,255,.055);
         }
 
-        .price-left {
+        .price-row-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .price-icon {
-            width: 38px;
-            height: 38px;
+        .price-row-icon {
+            width: 36px;
+            height: 36px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 12px;
+            border-radius: 11px;
 
             background:
-                rgba(255,255,255,.055);
+                rgba(255,255,255,.05);
 
-            font-size: 21px;
+            font-size: 19px;
         }
 
-        .price-name {
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        .price-note {
-            margin-top: 2px;
-
-            color: #72727c;
-            font-size: 10px;
-        }
-
-        .price-value {
+        .price-row-name {
+            font-size: 13px;
             font-weight: 900;
         }
 
-        @keyframes priceGlow {
+        .price-row-sub {
+            margin-top: 2px;
+
+            color: #6f6f79;
+            font-size: 9px;
+        }
+
+        .price-row-value {
+            font-weight: 950;
+            font-size: 13px;
+        }
+
+        @keyframes pricePulse {
 
             0%,100% {
                 filter:
                     drop-shadow(
                         0 0 0
-                        rgba(140,100,255,0)
+                        rgba(133,96,255,0)
                     );
             }
 
@@ -1238,38 +1263,97 @@
                 filter:
                     drop-shadow(
                         0 0 21px
-                        rgba(140,100,255,.28)
+                        rgba(133,96,255,.26)
                     );
             }
 
         }
 
 
-        /* ==========================================
-           REVIEWS
-        ========================================== */
+        /* ==================================================
+           INFO STEPS
+        ================================================== */
 
-        .review-hero {
-            text-align: center;
+        .step {
+            display: flex;
+            gap: 11px;
+
+            padding: 13px 0;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.05);
         }
 
-        .review-icon {
-            width: 80px;
-            height: 80px;
+        .step:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
 
-            margin: 2px auto 15px;
+        .step:first-child {
+            padding-top: 0;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+
+            flex: 0 0 30px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 26px;
+            border-radius: 10px;
+
+            background:
+                rgba(130,98,255,.11);
+
+            color: #bbaeff;
+
+            font-size: 12px;
+            font-weight: 950;
+        }
+
+        .step-title {
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .step-text {
+            margin-top: 3px;
+
+            color: #797983;
+
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+
+        /* ==================================================
+           REVIEWS
+        ================================================== */
+
+        .reviews-icon {
+            width: 77px;
+            height: 77px;
+
+            margin:
+                2px
+                auto
+                15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 25px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,201,76,.20),
-                    rgba(255,72,166,.10)
+                    rgba(255,202,75,.18),
+                    rgba(255,85,170,.09)
                 );
 
             border:
@@ -1277,53 +1361,64 @@
                 rgba(255,255,255,.08);
 
             box-shadow:
-                0 0 35px
-                rgba(255,190,60,.10);
+                0 0 38px
+                rgba(255,194,63,.10);
 
             animation:
-                reviewFloat 3s ease-in-out infinite;
+                reviewsFloat 3.1s ease-in-out infinite;
         }
 
-        .review-icon span {
-            font-size: 34px;
+        .reviews-icon span {
+            font-size: 33px;
         }
 
         .rating {
-            margin: 15px 0;
+            text-align: center;
 
-            font-size: 22px;
+            font-size: 21px;
             letter-spacing: 3px;
+
+            margin-bottom: 13px;
 
             animation:
                 ratingGlow 2.8s ease-in-out infinite;
         }
 
         .review-text {
-            color: #9999a3;
-            font-size: 14px;
+            text-align: center;
+
+            color: #9898a3;
+
+            font-size: 12px;
             line-height: 1.65;
         }
 
-        .review-user {
-            margin-top: 15px;
+        .review-channel {
+            display: block;
 
-            display: inline-block;
+            width: fit-content;
 
-            padding: 9px 14px;
+            margin:
+                15px
+                auto
+                0;
+
+            padding: 9px 13px;
 
             border-radius: 13px;
 
             background:
-                rgba(255,255,255,.05);
+                rgba(255,255,255,.045);
 
             border:
                 1px solid
                 rgba(255,255,255,.06);
 
-            font-weight: 900;
+            font-size: 12px;
+            font-weight: 950;
         }
 
-        @keyframes reviewFloat {
+        @keyframes reviewsFloat {
 
             0%,100% {
                 transform:
@@ -1333,7 +1428,7 @@
 
             50% {
                 transform:
-                    translateY(-7px)
+                    translateY(-6px)
                     rotate(-2deg);
             }
 
@@ -1342,44 +1437,43 @@
         @keyframes ratingGlow {
 
             0%,100% {
-                opacity: .75;
+                opacity: .7;
             }
 
             50% {
                 opacity: 1;
                 text-shadow:
-                    0 0 20px
-                    rgba(255,200,80,.32);
+                    0 0 18px
+                    rgba(255,199,76,.35);
             }
 
         }
 
 
-        /* ==========================================
+        /* ==================================================
            SUPPORT
-        ========================================== */
-
-        .support-hero {
-            text-align: center;
-        }
+        ================================================== */
 
         .support-icon {
-            width: 80px;
-            height: 80px;
+            width: 77px;
+            height: 77px;
 
-            margin: 2px auto 15px;
+            margin:
+                2px
+                auto
+                15px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 26px;
+            border-radius: 25px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(130,95,255,.23),
-                    rgba(0,165,255,.10)
+                    rgba(133,97,255,.22),
+                    rgba(0,165,255,.09)
                 );
 
             border:
@@ -1387,7 +1481,7 @@
                 rgba(255,255,255,.08);
 
             box-shadow:
-                0 0 38px
+                0 0 35px
                 rgba(110,80,255,.13);
 
             animation:
@@ -1395,32 +1489,46 @@
         }
 
         .support-icon span {
-            font-size: 34px;
+            font-size: 33px;
+        }
+
+        .support-title {
+            text-align: center;
+
+            font-size: 20px;
+            font-weight: 950;
+
+            margin-bottom: 10px;
         }
 
         .support-text {
-            color: #9999a3;
+            color: #9696a1;
+
+            font-size: 12px;
             line-height: 1.65;
-            font-size: 14px;
         }
 
-        .username {
-            display: inline-block;
+        .support-user {
+            width: fit-content;
 
-            margin-top: 12px;
+            margin:
+                14px
+                auto
+                0;
 
-            padding: 10px 14px;
+            padding: 9px 13px;
 
             border-radius: 13px;
 
             background:
-                rgba(255,255,255,.05);
+                rgba(255,255,255,.045);
 
             border:
                 1px solid
                 rgba(255,255,255,.06);
 
-            font-weight: 900;
+            font-size: 12px;
+            font-weight: 950;
         }
 
         @keyframes supportFloat {
@@ -1436,117 +1544,152 @@
         }
 
 
-        /* ==========================================
-           PAYMENT
-        ========================================== */
+        /* ==================================================
+           SAFETY
+        ================================================== */
 
-        .payment-title {
+        .safety-main {
             text-align: center;
-
-            font-size: 21px;
-            font-weight: 900;
-
-            margin-bottom: 15px;
         }
 
-        .gift-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .safety-icon {
+            font-size: 42px;
+            margin-bottom: 9px;
 
-            padding: 14px;
-            margin-top: 10px;
+            animation:
+                safetyPulse 2.5s ease-in-out infinite;
+        }
 
-            border-radius: 17px;
+        .safety-title {
+            font-size: 19px;
+            font-weight: 950;
+        }
+
+        .safety-text {
+            margin-top: 8px;
+
+            color: #94949f;
+
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .safety-warning {
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 15px;
 
             background:
-                rgba(255,255,255,.04);
+                rgba(255,189,73,.055);
 
             border:
                 1px solid
-                rgba(255,255,255,.055);
-        }
+                rgba(255,189,73,.09);
 
-        .gift-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+            color: #b4a47d;
 
-        .gift-icon {
-            width: 39px;
-            height: 39px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.055);
-
-            font-size: 21px;
-        }
-
-        .gift-name {
-            font-size: 14px;
-            font-weight: 900;
-        }
-
-        .gift-note {
-            margin-top: 2px;
-
-            color: #74747d;
             font-size: 10px;
+            line-height: 1.5;
         }
 
-        .gift-price {
-            font-weight: 900;
-        }
+        @keyframes safetyPulse {
 
-        .total {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            0%,100% {
+                transform: scale(1);
+                filter:
+                    drop-shadow(
+                        0 0 0
+                        rgba(255,190,70,0)
+                    );
+            }
 
-            margin-top: 12px;
-            padding: 15px;
+            50% {
+                transform: scale(1.05);
+                filter:
+                    drop-shadow(
+                        0 0 12px
+                        rgba(255,190,70,.2)
+                    );
+            }
 
-            border-radius: 17px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(125,91,255,.14),
-                    rgba(0,171,255,.06)
-                );
-
-            border:
-                1px solid
-                rgba(130,100,255,.13);
         }
 
 
-        /* ==========================================
+        /* ==================================================
            FOOTER
-        ========================================== */
+        ================================================== */
 
         .footer {
             text-align: center;
 
             margin:
-                28px 0 14px;
+                25px
+                0
+                13px;
 
-            color: #55555f;
-            font-size: 11px;
-            letter-spacing: .4px;
+            color: #50505a;
+
+            font-size: 9px;
+            letter-spacing: 1px;
         }
 
 
-        /* ==========================================
+        /* ==================================================
+           PAGE ANIMATION
+        ================================================== */
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+        @keyframes appearTop {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(-12px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+        @keyframes cardIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(10px)
+                    scale(.99);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /* ==================================================
            MOBILE
-        ========================================== */
+        ================================================== */
 
         @media (max-width: 420px) {
 
@@ -1554,14 +1697,19 @@
                 padding: 10px;
             }
 
+            .online {
+                display: none;
+            }
+
             .hero {
                 padding:
-                    22px 18px
-                    20px;
+                    21px
+                    17px
+                    19px;
             }
 
             .hero-title {
-                font-size: 34px;
+                font-size: 33px;
             }
 
             .menu-card {
@@ -1569,15 +1717,7 @@
             }
 
             .country-name {
-                font-size: 17px;
-            }
-
-            .buy {
-                min-width: 92px;
-            }
-
-            .brand-status {
-                display: none;
+                font-size: 14px;
             }
 
         }
@@ -1590,22 +1730,19 @@
 <body>
 
 
-<!-- ==========================================
+<!-- ==================================================
      BACKGROUND
-========================================== -->
+================================================== -->
 
-<div class="background">
+<div class="bg">
 
-    <div class="grid"></div>
+    <div class="bg-text">
+        FIZSHOPKA FIZSHOPKA FIZSHOPKA
+    </div>
 
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-    <div class="glow three"></div>
-
-    <div
-        class="particles"
-        id="particles"
-    ></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
 
 </div>
 
@@ -1613,30 +1750,27 @@
 <div class="container">
 
 
-    <!-- ==========================================
+    <!-- ==================================================
          HOME
-    ========================================== -->
+    ================================================== -->
 
     <div id="home">
 
+        <div class="topbar">
 
-        <!-- BRAND -->
+            <div class="brand">
 
-        <div class="brand">
-
-            <div class="brand-left">
-
-                <div class="brand-logo">
+                <div class="brand-icon">
                     <span>⚡</span>
                 </div>
 
                 <div>
 
-                    <div class="brand-name">
+                    <div class="brand-title">
                         Fizshopka
                     </div>
 
-                    <div class="brand-sub">
+                    <div class="brand-subtitle">
                         Физ номера
                     </div>
 
@@ -1645,9 +1779,9 @@
             </div>
 
 
-            <div class="status">
+            <div class="online">
 
-                <div class="status-dot"></div>
+                <div class="online-dot"></div>
 
                 Онлайн
 
@@ -1660,32 +1794,45 @@
 
         <div class="hero">
 
-            <div class="hero-badge">
-                ⚡ Быстро • Просто • Удобно
-            </div>
+            <div class="hero-content">
 
-
-            <div class="hero-title">
-                Физ номера<br>
-                без лишнего.
-            </div>
-
-
-            <div class="hero-text">
-                Выбери страну, оформи заказ
-                и получи номер. Всё в одном
-                месте внутри Telegram.
-            </div>
-
-
-            <div class="hero-price">
-
-                <div class="hero-price-big">
-                    75 ⭐
+                <div class="hero-pill">
+                    ⚡ Официальный магазин
                 </div>
 
-                <div class="hero-price-small">
-                    за номер
+
+                <div class="hero-title">
+                    Физ номера<br>
+                    в пару кликов.
+                </div>
+
+
+                <div class="hero-text">
+                    Выбери страну, оформи заказ
+                    и получи свой номер.
+                    Всё прямо внутри Telegram.
+                </div>
+
+
+                <div class="hero-bottom">
+
+                    <div class="hero-price">
+
+                        <strong>
+                            75 ⭐
+                        </strong>
+
+                        <span>
+                            за номер
+                        </span>
+
+                    </div>
+
+
+                    <div class="mini-badge">
+                        ● Сервис работает
+                    </div>
+
                 </div>
 
             </div>
@@ -1693,204 +1840,251 @@
         </div>
 
 
-        <!-- MARQUEE -->
+        <!-- NOTICE -->
 
-        <div class="marquee">
+        <div class="notice">
 
-            <div class="marquee-track">
+            <div class="notice-icon">
+                🛡️
+            </div>
 
-                <span>
-                    FIZSHOPKA
-                </span>
+            <div>
 
-                <span>
-                    ФИЗ НОМЕРА
-                </span>
+                <div class="notice-title">
+                    Важно
+                </div>
 
-                <span>
-                    75 ⭐
-                </span>
-
-                <span>
-                    FIZSHOPKA
-                </span>
-
-                <span>
-                    ФИЗ НОМЕРА
-                </span>
-
-                <span>
-                    75 ⭐
-                </span>
-
-                <span>
-                    FIZSHOPKA
-                </span>
-
-                <span>
-                    ФИЗ НОМЕРА
-                </span>
-
-                <span>
-                    75 ⭐
-                </span>
+                <div class="notice-text">
+                    Покупайте только через
+                    официальный Fizshopka.
+                    Остерегайтесь ботов-копий
+                    с похожим названием.
+                </div>
 
             </div>
 
         </div>
 
 
-        <!-- COUNTRIES -->
+        <!-- BUY -->
 
-        <div class="section-head">
+        <div class="section">
 
-            <div class="section-title">
-                🌎 Выберите страну
-            </div>
+            <button
+                class="buy-main"
+                onclick="showCountries()"
+            >
 
-            <div class="section-note">
-                75 ⭐
-            </div>
+                <div class="buy-main-left">
+
+                    <div class="buy-main-icon">
+                        🛒
+                    </div>
+
+                    <div>
+
+                        <div class="buy-main-title">
+                            Купить физ номер
+                        </div>
+
+                        <div class="buy-main-sub">
+                            Выбрать страну • 75 ⭐
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="buy-main-arrow">
+                    →
+                </div>
+
+            </button>
 
         </div>
-
-
-        <div id="countries"></div>
 
 
         <!-- MENU -->
 
-        <div class="section-head"
-             style="margin-top:20px;">
+        <div class="section">
 
-            <div class="section-title">
-                Меню
+            <div class="section-head">
+
+                <div class="section-title">
+                    Быстрый доступ
+                </div>
+
+            </div>
+
+
+            <div class="menu-grid">
+
+
+                <button
+                    class="menu-card"
+                    onclick="showPrice()"
+                >
+
+                    <div class="menu-icon">
+                        💎
+                    </div>
+
+                    <div class="menu-name">
+                        Прайс
+                    </div>
+
+                    <div class="menu-description">
+                        Стоимость номера
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="showReviews()"
+                >
+
+                    <div class="menu-icon">
+                        ⭐
+                    </div>
+
+                    <div class="menu-name">
+                        Отзывы
+                    </div>
+
+                    <div class="menu-description">
+                        Мнение покупателей
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="showHowTo()"
+                >
+
+                    <div class="menu-icon">
+                        📖
+                    </div>
+
+                    <div class="menu-name">
+                        Как купить?
+                    </div>
+
+                    <div class="menu-description">
+                        Пошаговая инструкция
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="showSafety()"
+                >
+
+                    <div class="menu-icon">
+                        🛡️
+                    </div>
+
+                    <div class="menu-name">
+                        Безопасность
+                    </div>
+
+                    <div class="menu-description">
+                        Как не попасть на скам
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="support()"
+                >
+
+                    <div class="menu-icon">
+                        💬
+                    </div>
+
+                    <div class="menu-name">
+                        Поддержка
+                    </div>
+
+                    <div class="menu-description">
+                        Помощь по заказу
+                    </div>
+
+                </button>
+
+
+                <button
+                    class="menu-card"
+                    onclick="showCountries()"
+                >
+
+                    <div class="menu-icon">
+                        🌎
+                    </div>
+
+                    <div class="menu-name">
+                        Все страны
+                    </div>
+
+                    <div class="menu-description">
+                        Доступные номера
+                    </div>
+
+                </button>
+
             </div>
 
         </div>
 
 
-        <div class="menu-grid">
-
-
-            <button
-                class="menu-card"
-                onclick="showPrice()"
-            >
-
-                <div class="menu-icon">
-                    💎
-                </div>
-
-                <div class="menu-name">
-                    Прайс
-                </div>
-
-                <div class="menu-small">
-                    Стоимость и оплата
-                </div>
-
-            </button>
-
-
-            <button
-                class="menu-card"
-                onclick="showReviews()"
-            >
-
-                <div class="menu-icon">
-                    ⭐
-                </div>
-
-                <div class="menu-name">
-                    Отзывы
-                </div>
-
-                <div class="menu-small">
-                    Мнение покупателей
-                </div>
-
-            </button>
-
-
-            <button
-                class="menu-card"
-                onclick="support()"
-            >
-
-                <div class="menu-icon">
-                    💬
-                </div>
-
-                <div class="menu-name">
-                    Поддержка
-                </div>
-
-                <div class="menu-small">
-                    Помощь по заказу
-                </div>
-
-            </button>
-
-
-            <button
-                class="menu-card"
-                onclick="showPrice()"
-            >
-
-                <div class="menu-icon">
-                    🎁
-                </div>
-
-                <div class="menu-name">
-                    Оплата
-                </div>
-
-                <div class="menu-small">
-                    50 ⭐ + 25 ⭐
-                </div>
-
-            </button>
-
-
+        <div class="footer">
+            FIZSHOPKA • ОФИЦИАЛЬНЫЙ МАГАЗИН
         </div>
 
     </div>
 
 
-    <!-- ==========================================
-         PAYMENT
-    ========================================== -->
+    <!-- ==================================================
+         COUNTRIES
+    ================================================== -->
 
     <div
-        id="payment"
-        class="page hidden"
+        id="countriesPage"
+        class="hidden"
     >
 
         <button
-            class="secondary back"
+            class="back"
             onclick="goHome()"
         >
-            ← Назад
+            ← На главную
         </button>
 
 
-        <div class="brand">
+        <div class="page-head">
 
-            <div class="brand-left">
+            <div class="page-head-row">
 
-                <div class="brand-logo">
-                    <span>🎁</span>
+                <div class="page-head-icon">
+                    🌎
                 </div>
 
                 <div>
 
-                    <div class="brand-name">
-                        Оплата
+                    <div class="page-head-title">
+                        Выберите страну
                     </div>
 
-                    <div class="brand-sub">
-                        Fizshopka
+                    <div class="page-head-sub">
+                        Все номера — 75 ⭐
                     </div>
 
                 </div>
@@ -1900,141 +2094,240 @@
         </div>
 
 
-        <div class="product">
+        <div
+            class="countries-grid"
+            id="countries"
+        ></div>
 
-            <div class="payment-title">
-                Оплата подарками
+
+        <div class="footer">
+            Fizshopka
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         PAYMENT
+    ================================================== -->
+
+    <div
+        id="payment"
+        class="hidden"
+    >
+
+        <button
+            class="back"
+            onclick="showCountries()"
+        >
+            ← Выбрать другую страну
+        </button>
+
+
+        <div class="page-head">
+
+            <div class="page-head-row">
+
+                <div class="page-head-icon">
+                    🎁
+                </div>
+
+                <div>
+
+                    <div class="page-head-title">
+                        Оформление
+                    </div>
+
+                    <div
+                        class="page-head-sub"
+                        id="selectedCountry"
+                    ></div>
+
+                </div>
+
             </div>
 
+        </div>
+
+
+        <div class="card">
 
             <div
                 style="
                     text-align:center;
-                    color:#8f8f99;
-                    font-size:13px;
-                    margin-bottom:14px;
+                    font-size:18px;
+                    font-weight:950;
+                    margin-bottom:15px;
                 "
-                id="selectedCountry"
             >
+                Оплата подарками
             </div>
 
 
-            <div class="gift-row">
+            <div class="price-row">
 
-                <div class="gift-left">
+                <div class="price-row-left">
 
-                    <div class="gift-icon">
+                    <div class="price-row-icon">
                         💐
                     </div>
 
                     <div>
 
-                        <div class="gift-name">
+                        <div class="price-row-name">
                             Букет
                         </div>
 
-                        <div class="gift-note">
-                            Telegram Gift
+                        <div class="price-row-sub">
+                            1 подарок
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="gift-price">
+                <div class="price-row-value">
                     50 ⭐
                 </div>
 
             </div>
 
 
-            <div class="gift-row">
+            <div class="price-row">
 
-                <div class="gift-left">
+                <div class="price-row-left">
 
-                    <div class="gift-icon">
+                    <div class="price-row-icon">
                         🌹
                     </div>
 
                     <div>
 
-                        <div class="gift-name">
+                        <div class="price-row-name">
                             Роза
                         </div>
 
-                        <div class="gift-note">
-                            Telegram Gift
+                        <div class="price-row-sub">
+                            1 подарок
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="gift-price">
+                <div class="price-row-value">
                     25 ⭐
                 </div>
 
             </div>
 
 
-            <div class="total">
+            <div class="price-row">
 
-                <strong>
-                    💎 Итого
-                </strong>
+                <div class="price-row-left">
 
-                <strong>
+                    <div class="price-row-icon">
+                        💎
+                    </div>
+
+                    <div>
+
+                        <div class="price-row-name">
+                            Итого
+                        </div>
+
+                        <div class="price-row-sub">
+                            Полная стоимость
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="price-row-value">
                     75 ⭐
-                </strong>
+                </div>
 
             </div>
 
 
             <button
-                class="secondary"
+                class="buy-main"
                 onclick="giftPayment()"
-                style="margin-top:13px;"
+                style="
+                    margin-top:13px;
+                    min-height:57px;
+                "
             >
-                🎁 Перейти к оплате
+
+                <div class="buy-main-left">
+
+                    <div class="buy-main-icon">
+                        🎁
+                    </div>
+
+                    <div>
+
+                        <div class="buy-main-title">
+                            Перейти к оплате
+                        </div>
+
+                        <div class="buy-main-sub">
+                            Букет + роза
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="buy-main-arrow">
+                    →
+                </div>
+
             </button>
 
+        </div>
+
+
+        <div class="footer">
+            Fizshopka • 75 ⭐
         </div>
 
     </div>
 
 
-    <!-- ==========================================
+    <!-- ==================================================
          PRICE
-    ========================================== -->
+    ================================================== -->
 
     <div
         id="pricePage"
-        class="page hidden"
+        class="hidden"
     >
 
         <button
-            class="secondary back"
+            class="back"
             onclick="goHome()"
         >
-            ← Назад
+            ← На главную
         </button>
 
 
-        <div class="brand">
+        <div class="page-head">
 
-            <div class="brand-left">
+            <div class="page-head-row">
 
-                <div class="brand-logo">
-                    <span>💎</span>
+                <div class="page-head-icon">
+                    💎
                 </div>
 
                 <div>
 
-                    <div class="brand-name">
+                    <div class="page-head-title">
                         Прайс
                     </div>
 
-                    <div class="brand-sub">
+                    <div class="page-head-sub">
                         Fizshopka
                     </div>
 
@@ -2045,7 +2338,7 @@
         </div>
 
 
-        <div class="product price-card">
+        <div class="card price-center">
 
             <div class="price-label">
                 Физ номер
@@ -2055,26 +2348,26 @@
                 75 ⭐
             </div>
 
-            <div class="price-under">
+            <div class="price-sub">
                 стоимость одного номера
             </div>
 
 
             <div class="price-row">
 
-                <div class="price-left">
+                <div class="price-row-left">
 
-                    <div class="price-icon">
+                    <div class="price-row-icon">
                         💐
                     </div>
 
                     <div>
 
-                        <div class="price-name">
+                        <div class="price-row-name">
                             Букет
                         </div>
 
-                        <div class="price-note">
+                        <div class="price-row-sub">
                             часть оплаты
                         </div>
 
@@ -2082,7 +2375,7 @@
 
                 </div>
 
-                <div class="price-value">
+                <div class="price-row-value">
                     50 ⭐
                 </div>
 
@@ -2091,19 +2384,19 @@
 
             <div class="price-row">
 
-                <div class="price-left">
+                <div class="price-row-left">
 
-                    <div class="price-icon">
+                    <div class="price-row-icon">
                         🌹
                     </div>
 
                     <div>
 
-                        <div class="price-name">
+                        <div class="price-row-name">
                             Роза
                         </div>
 
-                        <div class="price-note">
+                        <div class="price-row-sub">
                             часть оплаты
                         </div>
 
@@ -2111,7 +2404,7 @@
 
                 </div>
 
-                <div class="price-value">
+                <div class="price-row-value">
                     25 ⭐
                 </div>
 
@@ -2120,19 +2413,19 @@
 
             <div class="price-row">
 
-                <div class="price-left">
+                <div class="price-row-left">
 
-                    <div class="price-icon">
+                    <div class="price-row-icon">
                         🎁
                     </div>
 
                     <div>
 
-                        <div class="price-name">
+                        <div class="price-row-name">
                             Полная оплата
                         </div>
 
-                        <div class="price-note">
+                        <div class="price-row-sub">
                             букет + роза
                         </div>
 
@@ -2140,62 +2433,54 @@
 
                 </div>
 
-                <div class="price-value">
+                <div class="price-row-value">
                     75 ⭐
                 </div>
 
             </div>
 
+        </div>
 
-            <p
-                style="
-                    color:#7f7f89;
-                    font-size:13px;
-                    line-height:1.6;
-                    margin:17px 4px 2px;
-                "
-            >
-                Для оплаты отправьте
-                💐 букет и 🌹 розу.
-            </p>
 
+        <div class="footer">
+            FIZSHOPKA • 75 ⭐
         </div>
 
     </div>
 
 
-    <!-- ==========================================
+    <!-- ==================================================
          REVIEWS
-    ========================================== -->
+    ================================================== -->
 
     <div
         id="reviewsPage"
-        class="page hidden"
+        class="hidden"
     >
 
         <button
-            class="secondary back"
+            class="back"
             onclick="goHome()"
         >
-            ← Назад
+            ← На главную
         </button>
 
 
-        <div class="brand">
+        <div class="page-head">
 
-            <div class="brand-left">
+            <div class="page-head-row">
 
-                <div class="brand-logo">
-                    <span>⭐</span>
+                <div class="page-head-icon">
+                    ⭐
                 </div>
 
                 <div>
 
-                    <div class="brand-name">
+                    <div class="page-head-title">
                         Отзывы
                     </div>
 
-                    <div class="brand-sub">
+                    <div class="page-head-sub">
                         Мнение покупателей
                     </div>
 
@@ -2206,9 +2491,9 @@
         </div>
 
 
-        <div class="product review-hero">
+        <div class="card">
 
-            <div class="review-icon">
+            <div class="reviews-icon">
                 <span>⭐</span>
             </div>
 
@@ -2220,21 +2505,14 @@
 
             <div class="review-text">
 
-                Хотите посмотреть отзывы
-                перед покупкой?
-
-                <br><br>
-
-                Все отзывы находятся
+                Перед покупкой можете посмотреть
+                отзывы покупателей Fizshopka
                 в нашем Telegram-канале.
-                Там можно посмотреть
-                впечатления покупателей
-                и реальные отзывы.
 
             </div>
 
 
-            <div class="review-user">
+            <div class="review-channel">
                 @otzywyf
             </div>
 
@@ -2242,48 +2520,222 @@
             <button
                 class="secondary"
                 onclick="openReviews()"
+                style="
+                    margin-top:14px;
+                    width:100%;
+                    min-height:45px;
+                    border-radius:14px;
+                    background:rgba(255,255,255,.05);
+                    color:#fff;
+                "
             >
-                ⭐ Смотреть отзывы
+                ⭐ Открыть отзывы
             </button>
+
+        </div>
+
+
+        <div class="footer">
+            FIZSHOPKA • ОТЗЫВЫ
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         HOW TO
+    ================================================== -->
+
+    <div
+        id="howPage"
+        class="hidden"
+    >
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ← На главную
+        </button>
+
+
+        <div class="page-head">
+
+            <div class="page-head-row">
+
+                <div class="page-head-icon">
+                    📖
+                </div>
+
+                <div>
+
+                    <div class="page-head-title">
+                        Как купить?
+                    </div>
+
+                    <div class="page-head-sub">
+                        Всё максимально просто
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+
+                    <div class="step-title">
+                        Выберите страну
+                    </div>
+
+                    <div class="step-text">
+                        Нажмите «Купить физ номер»
+                        и выберите нужную страну.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+
+                    <div class="step-title">
+                        Создайте заказ
+                    </div>
+
+                    <div class="step-text">
+                        После выбора страны
+                        откроется страница оплаты.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+
+                    <div class="step-title">
+                        Оплатите заказ
+                    </div>
+
+                    <div class="step-text">
+                        Отправьте 💐 букет
+                        и 🌹 розу — всего 75 ⭐.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div>
+
+                    <div class="step-title">
+                        Отправьте подтверждение
+                    </div>
+
+                    <div class="step-text">
+                        Нажмите «Я оплатил»
+                        и отправьте необходимые
+                        скриншоты.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    5
+                </div>
+
+                <div>
+
+                    <div class="step-title">
+                        Получите номер
+                    </div>
+
+                    <div class="step-text">
+                        После проверки оплаты
+                        номер будет отправлен
+                        вам в Telegram.
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- ==========================================
-         SUPPORT
-    ========================================== -->
+    <!-- ==================================================
+         SAFETY
+    ================================================== -->
 
     <div
-        id="supportPage"
-        class="page hidden"
+        id="safetyPage"
+        class="hidden"
     >
 
         <button
-            class="secondary back"
+            class="back"
             onclick="goHome()"
         >
-            ← Назад
+            ← На главную
         </button>
 
 
-        <div class="brand">
+        <div class="page-head">
 
-            <div class="brand-left">
+            <div class="page-head-row">
 
-                <div class="brand-logo">
-                    <span>💬</span>
+                <div class="page-head-icon">
+                    🛡️
                 </div>
 
                 <div>
 
-                    <div class="brand-name">
-                        Поддержка
+                    <div class="page-head-title">
+                        Безопасность
                     </div>
 
-                    <div class="brand-sub">
-                        Fizshopka Support
+                    <div class="page-head-sub">
+                        Как не попасть на фейковый магазин
                     </div>
 
                 </div>
@@ -2293,21 +2745,97 @@
         </div>
 
 
-        <div class="product support-hero">
+        <div class="card safety-main">
+
+            <div class="safety-icon">
+                🛡️
+            </div>
+
+
+            <div class="safety-title">
+                Покупайте только здесь
+            </div>
+
+
+            <div class="safety-text">
+
+                В Telegram могут появляться
+                боты с похожими названиями
+                и аватарками.
+
+                <br><br>
+
+                Проверяйте, что вы открыли
+                именно официальный Fizshopka.
+
+            </div>
+
+
+            <div class="safety-warning">
+
+                ⚠️ Не отправляйте оплату
+                ботам-копиям и неизвестным
+                аккаунтам.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SUPPORT
+    ================================================== -->
+
+    <div
+        id="supportPage"
+        class="hidden"
+    >
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ← На главную
+        </button>
+
+
+        <div class="page-head">
+
+            <div class="page-head-row">
+
+                <div class="page-head-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <div class="page-head-title">
+                        Поддержка
+                    </div>
+
+                    <div class="page-head-sub">
+                        Помощь по заказам
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
 
             <div class="support-icon">
                 <span>💬</span>
             </div>
 
 
-            <h2
-                style="
-                    margin:0 0 10px;
-                    font-size:22px;
-                "
-            >
-                Мы на связи
-            </h2>
+            <div class="support-title">
+                Fizshopka Support
+            </div>
 
 
             <div class="support-text">
@@ -2318,16 +2846,15 @@
 
                 <br><br>
 
-                Напишите в поддержку,
-                укажите номер заказа
-                и подробно опишите проблему.
+                Напишите в поддержку
+                и укажите номер заказа.
                 Постараемся помочь
                 максимально быстро.
 
             </div>
 
 
-            <div class="username">
+            <div class="support-user">
                 @zxkssen
             </div>
 
@@ -2335,6 +2862,14 @@
             <button
                 class="secondary"
                 onclick="openSupport()"
+                style="
+                    margin-top:14px;
+                    width:100%;
+                    min-height:45px;
+                    border-radius:14px;
+                    background:rgba(255,255,255,.05);
+                    color:#fff;
+                "
             >
                 💬 Написать в поддержку
             </button>
@@ -2344,17 +2879,11 @@
     </div>
 
 
-    <!-- FOOTER -->
-
-    <div class="footer">
-        FIZSHOPKA • ФИЗ НОМЕРА • 2026
-    </div>
-
-
 </div>
 
 
 <script>
+
 
     const tg =
         window.Telegram.WebApp;
@@ -2364,48 +2893,9 @@
     tg.expand();
 
 
-    /* ==========================================
-       PARTICLES
-    ========================================== */
-
-    const particles =
-        document.getElementById(
-            "particles"
-        );
-
-
-    for (
-        let i = 0;
-        i < 30;
-        i++
-    ) {
-
-        const p =
-            document.createElement("div");
-
-        p.className =
-            "particle";
-
-        p.style.left =
-            Math.random() * 100 + "%";
-
-        p.style.animationDuration =
-            (7 + Math.random() * 11) + "s";
-
-        p.style.animationDelay =
-            (-Math.random() * 16) + "s";
-
-        p.style.opacity =
-            .15 + Math.random() * .7;
-
-        particles.appendChild(p);
-
-    }
-
-
-    /* ==========================================
+    /* ==================================================
        COUNTRIES
-    ========================================== */
+    ================================================== */
 
     const countries = [
 
@@ -2427,12 +2917,14 @@
     let selectedCountryName = null;
 
 
+    /* ==================================================
+       CREATE COUNTRIES
+    ================================================== */
+
     function renderCountries() {
 
         const container =
-            document.getElementById(
-                "countries"
-            );
+            document.getElementById("countries");
 
 
         countries.forEach(
@@ -2448,54 +2940,55 @@
                     country[2];
 
 
-                const product =
-                    document.createElement(
-                        "div"
-                    );
+                const card =
+                    document.createElement("div");
 
 
-                product.className =
-                    "product";
+                card.className =
+                    "country-card";
 
 
-                product.style.animationDelay =
-                    (index * .055) + "s";
+                card.style.animationDelay =
+                    (index * .05) + "s";
 
 
-                product.innerHTML = `
+                card.innerHTML = `
 
-                    <div class="country">
+                    <div class="country-info">
 
-                        <div class="country-info">
+                        <div class="country-flag">
+                            ${flag}
+                        </div>
+
+                        <div>
 
                             <div class="country-name">
-                                ${flag} ${name}
+                                ${name}
                             </div>
 
                             <div class="country-price">
-                                🎁 75 ⭐
+                                Физ номер • 75 ⭐
                             </div>
 
                         </div>
 
-                        <button
-                            class="buy"
-                            onclick="openPayment(
-                                '${code}',
-                                '${flag} ${name}'
-                            )"
-                        >
-                            Купить
-                        </button>
-
                     </div>
+
+
+                    <button
+                        class="country-buy"
+                        onclick="openPayment(
+                            '${code}',
+                            '${flag} ${name}'
+                        )"
+                    >
+                        Купить
+                    </button>
 
                 `;
 
 
-                container.appendChild(
-                    product
-                );
+                container.appendChild(card);
 
             }
         );
@@ -2506,63 +2999,77 @@
     renderCountries();
 
 
-    /* ==========================================
-       PAGE CONTROL
-    ========================================== */
+    /* ==================================================
+       HIDE ALL
+    ================================================== */
 
-    function hideAllPages() {
+    function hideAll() {
 
-        document
-            .getElementById("home")
-            .classList.add("hidden");
+        const pages = [
 
-        document
-            .getElementById("payment")
-            .classList.add("hidden");
+            "home",
+            "countriesPage",
+            "payment",
+            "pricePage",
+            "reviewsPage",
+            "howPage",
+            "safetyPage",
+            "supportPage"
 
-        document
-            .getElementById("pricePage")
-            .classList.add("hidden");
+        ];
 
-        document
-            .getElementById("reviewsPage")
-            .classList.add("hidden");
 
-        document
-            .getElementById("supportPage")
-            .classList.add("hidden");
+        pages.forEach(id => {
+
+            document
+                .getElementById(id)
+                .classList
+                .add("hidden");
+
+        });
 
     }
 
 
+    /* ==================================================
+       HOME
+    ================================================== */
+
     function goHome() {
 
-        hideAllPages();
-
+        hideAll();
 
         document
             .getElementById("home")
-            .classList.remove("hidden");
-
+            .classList
+            .remove("hidden");
 
         scrollTop();
 
     }
 
 
-    function scrollTop() {
+    /* ==================================================
+       COUNTRIES
+    ================================================== */
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+    function showCountries() {
+
+        hideAll();
+
+        document
+            .getElementById("countriesPage")
+            .classList
+            .remove("hidden");
+
+        scrollTop();
 
     }
 
 
-    /* ==========================================
+    /* ==================================================
        PAYMENT
-    ========================================== */
+    ================================================== */
 
     function openPayment(
         code,
@@ -2576,18 +3083,17 @@
             name;
 
 
-        hideAllPages();
+        hideAll();
 
 
         document
             .getElementById("payment")
-            .classList.remove("hidden");
+            .classList
+            .remove("hidden");
 
 
         document
-            .getElementById(
-                "selectedCountry"
-            )
+            .getElementById("selectedCountry")
             .textContent =
             name + " — 75 ⭐";
 
@@ -2615,53 +3121,41 @@
             + selectedCountry;
 
 
-        tg.openTelegramLink(
-            url
-        );
+        tg.openTelegramLink(url);
 
     }
 
 
-    /* ==========================================
+    /* ==================================================
        PRICE
-    ========================================== */
+    ================================================== */
 
     function showPrice() {
 
-        hideAllPages();
-
+        hideAll();
 
         document
-            .getElementById(
-                "pricePage"
-            )
-            .classList.remove(
-                "hidden"
-            );
-
+            .getElementById("pricePage")
+            .classList
+            .remove("hidden");
 
         scrollTop();
 
     }
 
 
-    /* ==========================================
+    /* ==================================================
        REVIEWS
-    ========================================== */
+    ================================================== */
 
     function showReviews() {
 
-        hideAllPages();
-
+        hideAll();
 
         document
-            .getElementById(
-                "reviewsPage"
-            )
-            .classList.remove(
-                "hidden"
-            );
-
+            .getElementById("reviewsPage")
+            .classList
+            .remove("hidden");
 
         scrollTop();
 
@@ -2677,23 +3171,54 @@
     }
 
 
-    /* ==========================================
+    /* ==================================================
+       HOW TO BUY
+    ================================================== */
+
+    function showHowTo() {
+
+        hideAll();
+
+        document
+            .getElementById("howPage")
+            .classList
+            .remove("hidden");
+
+        scrollTop();
+
+    }
+
+
+    /* ==================================================
+       SAFETY
+    ================================================== */
+
+    function showSafety() {
+
+        hideAll();
+
+        document
+            .getElementById("safetyPage")
+            .classList
+            .remove("hidden");
+
+        scrollTop();
+
+    }
+
+
+    /* ==================================================
        SUPPORT
-    ========================================== */
+    ================================================== */
 
     function support() {
 
-        hideAllPages();
-
+        hideAll();
 
         document
-            .getElementById(
-                "supportPage"
-            )
-            .classList.remove(
-                "hidden"
-            );
-
+            .getElementById("supportPage")
+            .classList
+            .remove("hidden");
 
         scrollTop();
 
@@ -2705,6 +3230,20 @@
         tg.openTelegramLink(
             "https://t.me/zxkssen"
         );
+
+    }
+
+
+    /* ==================================================
+       SCROLL
+    ================================================== */
+
+    function scrollTop() {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     }
 
