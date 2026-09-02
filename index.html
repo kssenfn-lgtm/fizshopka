@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Fizshopka</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -28,7 +36,7 @@
 
         .logo {
             text-align: center;
-            margin: 25px 0 35px;
+            margin: 25px 0 30px;
         }
 
         .logo h1 {
@@ -44,35 +52,39 @@
             background: #18181d;
             border: 1px solid #29292f;
             border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 18px;
+            margin-bottom: 12px;
         }
 
-        .product h2 {
-            margin: 0 0 8px;
+        .country {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
-        .product p {
-            color: #999;
-            line-height: 1.5;
+        .country-info {
+            flex: 1;
         }
 
-        .price {
-            font-size: 23px;
+        .country-name {
+            font-size: 19px;
             font-weight: bold;
-            margin: 15px 0;
+        }
+
+        .country-price {
+            color: #aaa;
+            margin-top: 5px;
         }
 
         button {
-            width: 100%;
-            padding: 16px;
-            margin-top: 12px;
             border: 0;
             border-radius: 14px;
             background: white;
             color: #111;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
+            padding: 13px 17px;
             cursor: pointer;
         }
 
@@ -80,9 +92,15 @@
             transform: scale(.97);
         }
 
+        .buy {
+            min-width: 105px;
+        }
+
         .secondary {
+            width: 100%;
             background: #242429;
             color: white;
+            margin-top: 12px;
         }
 
         .hidden {
@@ -98,150 +116,45 @@
             color: #666;
             font-size: 13px;
             margin-top: 30px;
+            margin-bottom: 15px;
         }
 
-        .country {
-            margin-top: 10px;
-        }
     </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- ГЛАВНАЯ -->
     <div id="home">
 
         <div class="logo">
+
             <h1>⚡ Fizshopka</h1>
-            <p>Магазин виртуальных номеров</p>
+
+            <p>
+                Магазин виртуальных номеров
+            </p>
+
         </div>
 
-        <div class="product">
-            <h2>🌎 Виртуальные номера</h2>
-            <p>Выберите нужную страну для покупки номера.</p>
-
-            <button onclick="openCountries()">
-                🛒 Выбрать страну
-            </button>
-        </div>
-
-        <div class="product">
-            <h2>💰 Прайс</h2>
-
-            <button class="secondary" onclick="showPrice()">
-                Открыть прайс
-            </button>
-        </div>
-
-        <div class="product">
-            <h2>💬 Поддержка</h2>
-
-            <button class="secondary" onclick="support()">
-                Поддержка
-            </button>
-        </div>
-
-    </div>
-
-
-    <!-- СТРАНЫ -->
-    <div id="countries" class="hidden">
-
-        <button class="secondary back" onclick="goHome()">
-            ← Назад
-        </button>
-
-        <div class="logo">
-            <h1>🌎 Страны</h1>
-            <p>Все номера — 75 ⭐</p>
-        </div>
+        <div id="countries"></div>
 
         <div class="product">
 
-            <button class="country" onclick="selectCountry('🇺🇸 США')">
-                🇺🇸 США — 75 ⭐
+            <button
+                class="secondary"
+                onclick="showPrice()"
+            >
+                💰 Прайс
             </button>
 
-            <button class="country" onclick="selectCountry('🇬🇧 Великобритания')">
-                🇬🇧 Великобритания — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇮🇳 Индия')">
-                🇮🇳 Индия — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇧🇷 Бразилия')">
-                🇧🇷 Бразилия — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇲🇽 Мексика')">
-                🇲🇽 Мексика — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇪🇸 Испания')">
-                🇪🇸 Испания — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇯🇵 Япония')">
-                🇯🇵 Япония — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇰🇷 Южная Корея')">
-                🇰🇷 Южная Корея — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇸🇬 Сингапур')">
-                🇸🇬 Сингапур — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇮🇩 Индонезия')">
-                🇮🇩 Индонезия — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇵🇭 Филиппины')">
-                🇵🇭 Филиппины — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇻🇳 Вьетнам')">
-                🇻🇳 Вьетнам — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇲🇾 Малайзия')">
-                🇲🇾 Малайзия — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇿🇦 ЮАР')">
-                🇿🇦 ЮАР — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇳🇬 Нигерия')">
-                🇳🇬 Нигерия — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇪🇬 Египет')">
-                🇪🇬 Египет — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇵🇰 Пакистан')">
-                🇵🇰 Пакистан — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇧🇩 Бангладеш')">
-                🇧🇩 Бангладеш — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇵🇪 Перу')">
-                🇵🇪 Перу — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇨🇱 Чили')">
-                🇨🇱 Чили — 75 ⭐
-            </button>
-
-            <button class="country" onclick="selectCountry('🇨🇴 Колумбия')">
-                🇨🇴 Колумбия — 75 ⭐
+            <button
+                class="secondary"
+                onclick="support()"
+            >
+                💬 Поддержка
             </button>
 
         </div>
@@ -249,32 +162,48 @@
     </div>
 
 
-    <!-- ОПЛАТА -->
     <div id="payment" class="hidden">
 
-        <button class="secondary back" onclick="openCountries()">
+        <button
+            class="secondary back"
+            onclick="goHome()"
+        >
             ← Назад
         </button>
 
         <div class="logo">
-            <h1>💳 Оплата</h1>
-            <p id="selectedCountry">Номер — 75 ⭐</p>
+
+            <h1>🎁 Оплата</h1>
+
+            <p id="selectedCountry"></p>
+
         </div>
 
         <div class="product">
 
-            <h2>Выберите способ оплаты</h2>
+            <h2>
+                Оплата подарками
+            </h2>
 
-            <button onclick="starsPayment()">
-                ⭐ Telegram Stars
-            </button>
+            <p>
+                💐 Букет — 50 ⭐
+            </p>
 
-            <button class="secondary" onclick="giftPayment()">
-                🎁 Оплата подарком
-            </button>
+            <p>
+                🌹 Роза — 25 ⭐
+            </p>
 
-            <button class="secondary" onclick="paypalPayment()">
-                💵 PayPal (USD)
+            <p>
+                <b>
+                    Всего — 75 ⭐
+                </b>
+            </p>
+
+            <button
+                class="secondary"
+                onclick="giftPayment()"
+            >
+                🎁 Перейти к оплате
             </button>
 
         </div>
@@ -297,71 +226,150 @@
     tg.expand();
 
 
-    let selectedCountry = "";
+    const countries = [
+
+        ["usa", "🇺🇸", "США"],
+        ["uk", "🇬🇧", "Великобритания"],
+        ["spain", "🇪🇸", "Испания"],
+        ["india", "🇮🇳", "Индия"],
+        ["indonesia", "🇮🇩", "Индонезия"],
+        ["brazil", "🇧🇷", "Бразилия"],
+        ["mexico", "🇲🇽", "Мексика"],
+        ["japan", "🇯🇵", "Япония"],
+        ["korea", "🇰🇷", "Южная Корея"]
+
+    ];
 
 
-    function hideAll() {
-        document.getElementById("home").classList.add("hidden");
-        document.getElementById("countries").classList.add("hidden");
-        document.getElementById("payment").classList.add("hidden");
+    let selectedCountry = null;
+
+    let selectedCountryName = null;
+
+
+    function renderCountries() {
+
+        const container =
+            document.getElementById("countries");
+
+        countries.forEach(country => {
+
+            const code = country[0];
+
+            const flag = country[1];
+
+            const name = country[2];
+
+
+            const product =
+                document.createElement("div");
+
+            product.className = "product";
+
+
+            product.innerHTML = `
+
+                <div class="country">
+
+                    <div class="country-info">
+
+                        <div class="country-name">
+
+                            ${flag} ${name}
+
+                        </div>
+
+                        <div class="country-price">
+
+                            🎁 75 ⭐
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="buy"
+                        onclick="openPayment(
+                            '${code}',
+                            '${flag} ${name}'
+                        )"
+                    >
+                        Купить
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(product);
+
+        });
+
+    }
+
+
+    renderCountries();
+
+
+    function openPayment(code, name) {
+
+        selectedCountry = code;
+
+        selectedCountryName = name;
+
+
+        document
+            .getElementById("home")
+            .classList.add("hidden");
+
+
+        document
+            .getElementById("payment")
+            .classList.remove("hidden");
+
+
+        document
+            .getElementById("selectedCountry")
+            .textContent =
+            name + " — 75 ⭐";
+
     }
 
 
     function goHome() {
-        hideAll();
-        document.getElementById("home").classList.remove("hidden");
-    }
+
+        document
+            .getElementById("payment")
+            .classList.add("hidden");
 
 
-    function openCountries() {
-        hideAll();
-        document.getElementById("countries").classList.remove("hidden");
-    }
-
-
-    function selectCountry(country) {
-
-        selectedCountry = country;
-
-        hideAll();
-
-        document.getElementById("payment").classList.remove("hidden");
-
-        document.getElementById("selectedCountry").innerText =
-            country + " — 75 ⭐";
-    }
-
-
-    function starsPayment() {
-
-        tg.showAlert(
-            "⭐ Telegram Stars\n\n" +
-            "Страна: " + selectedCountry + "\n" +
-            "Цена: 75 ⭐\n\n" +
-            "Для оформления оплаты используйте кнопку оплаты."
-        );
+        document
+            .getElementById("home")
+            .classList.remove("hidden");
 
     }
 
 
     function giftPayment() {
 
-        tg.showAlert(
-            "🎁 Оплата подарком\n\n" +
-            "Страна: " + selectedCountry + "\n\n" +
-            "Для оплаты подарком обратитесь в поддержку."
-        );
+        if (!selectedCountry) {
 
-    }
+            tg.showAlert(
+                "❌ Сначала выберите страну."
+            );
+
+            return;
+
+        }
 
 
-    function paypalPayment() {
+        const url =
+            "https://t.me/fizshopka_bot?start=buy_"
+            + selectedCountry;
 
-        tg.showAlert(
-            "💵 PayPal\n\n" +
-            "Оплата в USD.\n\n" +
-            "Для оплаты обратитесь в поддержку."
-        );
+
+        tg.openTelegramLink(url);
 
     }
 
@@ -369,8 +377,15 @@
     function showPrice() {
 
         tg.showAlert(
+
             "💰 Прайс\n\n" +
-            "Все доступные номера — 75 ⭐"
+
+            "Все номера — 75 ⭐\n\n" +
+
+            "💐 Букет — 50 ⭐\n" +
+
+            "🌹 Роза — 25 ⭐"
+
         );
 
     }
@@ -379,8 +394,11 @@
     function support() {
 
         tg.showAlert(
+
             "💬 Поддержка\n\n" +
+
             "Обратитесь в поддержку по вопросам заказа."
+
         );
 
     }
@@ -388,4 +406,5 @@
 </script>
 
 </body>
+
 </html>
