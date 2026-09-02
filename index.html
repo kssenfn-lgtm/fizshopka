@@ -18,14 +18,17 @@
 
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
             --bg: #060609;
-            --card: rgba(20, 20, 27, 0.68);
+            --card: rgba(19, 19, 26, 0.68);
             --border: rgba(255,255,255,0.08);
-            --text: #ffffff;
-            --muted: #9898a3;
+            --white: #ffffff;
+            --muted: #9797a3;
+            --purple: #8b6cff;
+            --blue: #4ecbff;
         }
 
         html {
@@ -34,40 +37,42 @@
 
         body {
             margin: 0;
-            padding: 18px;
+            padding: 14px;
             min-height: 100vh;
             font-family: Arial, sans-serif;
-            color: var(--text);
+            color: var(--white);
             overflow-x: hidden;
+
             background:
                 radial-gradient(
-                    circle at 15% 10%,
-                    rgba(117, 76, 255, 0.16),
+                    circle at 10% 5%,
+                    rgba(115, 75, 255, 0.17),
                     transparent 25%
                 ),
                 radial-gradient(
-                    circle at 85% 35%,
-                    rgba(0, 183, 255, 0.12),
-                    transparent 26%
+                    circle at 90% 30%,
+                    rgba(0, 174, 255, 0.13),
+                    transparent 27%
                 ),
                 radial-gradient(
-                    circle at 50% 100%,
-                    rgba(182, 64, 255, 0.10),
+                    circle at 45% 100%,
+                    rgba(170, 70, 255, 0.10),
                     transparent 30%
                 ),
                 #060609;
         }
 
-        /* =========================
-           ДВИЖУЩИЕСЯ СВЕЧЕНИЯ
-        ========================= */
+
+        /* =========================================
+           BACKGROUND ORBS
+        ========================================= */
 
         .ambient {
             position: fixed;
             inset: 0;
-            pointer-events: none;
             overflow: hidden;
-            z-index: -1;
+            pointer-events: none;
+            z-index: -2;
         }
 
         .orb {
@@ -81,76 +86,82 @@
         .orb1 {
             width: 230px;
             height: 230px;
+            top: 4%;
             left: -90px;
-            top: 7%;
-            background: #704cff;
-            animation: orb1 11s ease-in-out infinite alternate;
+            background: #704dff;
+            animation: moveOrb1 10s ease-in-out infinite alternate;
         }
 
         .orb2 {
             width: 260px;
             height: 260px;
-            right: -110px;
             top: 35%;
+            right: -110px;
             background: #009dff;
-            animation: orb2 13s ease-in-out infinite alternate;
+            animation: moveOrb2 13s ease-in-out infinite alternate;
         }
 
         .orb3 {
-            width: 210px;
-            height: 210px;
-            left: 30%;
-            bottom: -100px;
-            background: #a43cff;
-            animation: orb3 15s ease-in-out infinite alternate;
+            width: 220px;
+            height: 220px;
+            bottom: -80px;
+            left: 28%;
+            background: #ab40ff;
+            animation: moveOrb3 15s ease-in-out infinite alternate;
         }
 
-        @keyframes orb1 {
+        @keyframes moveOrb1 {
+
             0% {
                 transform: translate(0, 0) scale(1);
             }
 
             50% {
-                transform: translate(120px, 70px) scale(1.3);
+                transform: translate(120px, 70px) scale(1.28);
             }
 
             100% {
-                transform: translate(30px, 170px) scale(0.85);
+                transform: translate(40px, 160px) scale(0.9);
             }
+
         }
 
-        @keyframes orb2 {
+        @keyframes moveOrb2 {
+
             0% {
                 transform: translate(0, 0) scale(0.9);
             }
 
             50% {
-                transform: translate(-110px, -80px) scale(1.25);
+                transform: translate(-120px, -80px) scale(1.22);
             }
 
             100% {
-                transform: translate(-30px, 90px) scale(1);
+                transform: translate(-30px, 100px) scale(1.05);
             }
+
         }
 
-        @keyframes orb3 {
+        @keyframes moveOrb3 {
+
             0% {
                 transform: translate(0, 0) scale(1);
             }
 
             50% {
-                transform: translate(80px, -70px) scale(1.2);
+                transform: translate(80px, -80px) scale(1.2);
             }
 
             100% {
-                transform: translate(-80px, -120px) scale(0.9);
+                transform: translate(-80px, -110px) scale(0.92);
             }
+
         }
 
 
-        /* =========================
-           МЕЛКИЕ ЧАСТИЦЫ
-        ========================= */
+        /* =========================================
+           PARTICLES
+        ========================================= */
 
         .particles {
             position: fixed;
@@ -164,37 +175,44 @@
             width: 3px;
             height: 3px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.55);
-            box-shadow: 0 0 12px rgba(255,255,255,0.3);
-            animation: floatParticle linear infinite;
+            background: rgba(255,255,255,0.62);
+            box-shadow:
+                0 0 10px rgba(255,255,255,0.28);
+
+            animation:
+                particleFloat linear infinite;
         }
 
-        @keyframes floatParticle {
+        @keyframes particleFloat {
 
             from {
-                transform: translateY(110vh) translateX(0);
+                transform:
+                    translateY(110vh)
+                    translateX(0);
                 opacity: 0;
             }
 
             15% {
-                opacity: 0.7;
+                opacity: .75;
             }
 
             85% {
-                opacity: 0.7;
+                opacity: .75;
             }
 
             to {
-                transform: translateY(-15vh) translateX(35px);
+                transform:
+                    translateY(-15vh)
+                    translateX(40px);
                 opacity: 0;
             }
 
         }
 
 
-        /* =========================
-           КОНТЕЙНЕР
-        ========================= */
+        /* =========================================
+           CONTAINER
+        ========================================= */
 
         .container {
             max-width: 520px;
@@ -203,60 +221,67 @@
         }
 
 
-        /* =========================
-           ЛОГОТИП
-        ========================= */
+        /* =========================================
+           LOGO
+        ========================================= */
 
         .logo {
             text-align: center;
-            margin: 28px 0 31px;
-            animation: pageIn 0.7s ease both;
+            margin: 24px 0 28px;
+            animation: fadeTop .7s ease both;
         }
 
         .logo-badge {
-            width: 68px;
-            height: 68px;
+            width: 70px;
+            height: 70px;
             margin: 0 auto 15px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 22px;
+
+            border-radius: 23px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(132, 92, 255, 0.30),
-                    rgba(0, 174, 255, 0.16)
+                    rgba(135, 95, 255, .30),
+                    rgba(0, 174, 255, .13)
                 );
 
-            border: 1px solid rgba(255,255,255,0.10);
+            border:
+                1px solid
+                rgba(255,255,255,.10);
 
             box-shadow:
-                0 0 40px rgba(110,80,255,0.18),
-                inset 0 1px 0 rgba(255,255,255,0.09);
+                0 0 34px
+                rgba(115,85,255,.17),
+                inset 0 1px 0
+                rgba(255,255,255,.09);
 
             animation:
-                badgeFloat 3.5s ease-in-out infinite,
+                badgeFloat 3.4s ease-in-out infinite,
                 badgeGlow 4s ease-in-out infinite;
         }
 
         .logo-badge span {
-            font-size: 31px;
+            font-size: 32px;
         }
 
         .logo h1 {
             margin: 0;
-            font-size: 38px;
+
+            font-size: 39px;
             font-weight: 900;
-            letter-spacing: -1.3px;
+            letter-spacing: -1.6px;
 
             background:
                 linear-gradient(
                     90deg,
-                    #ffffff 0%,
-                    #bbaaff 35%,
-                    #7bd7ff 65%,
-                    #ffffff 100%
+                    #ffffff,
+                    #b7a6ff,
+                    #73d7ff,
+                    #ffffff
                 );
 
             background-size: 250% auto;
@@ -264,7 +289,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            animation: gradientText 5s linear infinite;
+            animation:
+                gradientText 5s linear infinite;
         }
 
         .logo p {
@@ -274,6 +300,7 @@
         }
 
         @keyframes gradientText {
+
             from {
                 background-position: 0% center;
             }
@@ -281,16 +308,21 @@
             to {
                 background-position: 250% center;
             }
+
         }
 
         @keyframes badgeFloat {
 
             0%, 100% {
-                transform: translateY(0) rotate(0deg);
+                transform:
+                    translateY(0)
+                    rotate(0deg);
             }
 
             50% {
-                transform: translateY(-6px) rotate(2deg);
+                transform:
+                    translateY(-6px)
+                    rotate(2deg);
             }
 
         }
@@ -299,68 +331,83 @@
 
             0%, 100% {
                 box-shadow:
-                    0 0 25px rgba(110,80,255,0.14),
-                    inset 0 1px 0 rgba(255,255,255,0.08);
+                    0 0 24px
+                    rgba(110,80,255,.14),
+                    inset 0 1px 0
+                    rgba(255,255,255,.08);
             }
 
             50% {
                 box-shadow:
-                    0 0 48px rgba(110,80,255,0.28),
-                    inset 0 1px 0 rgba(255,255,255,0.11);
+                    0 0 48px
+                    rgba(110,80,255,.28),
+                    inset 0 1px 0
+                    rgba(255,255,255,.11);
             }
 
         }
 
 
-        /* =========================
-           КАРТОЧКИ
-        ========================= */
+        /* =========================================
+           CARDS
+        ========================================= */
 
         .product {
             position: relative;
+
             margin-bottom: 13px;
             padding: 18px;
+
+            border-radius: 22px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,0.075),
-                    rgba(255,255,255,0.025)
+                    rgba(255,255,255,.075),
+                    rgba(255,255,255,.025)
                 );
 
-            border: 1px solid var(--border);
-            border-radius: 22px;
+            border:
+                1px solid
+                var(--border);
 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
 
             box-shadow:
-                0 14px 45px rgba(0,0,0,0.26),
-                inset 0 1px 0 rgba(255,255,255,0.035);
+                0 15px 45px
+                rgba(0,0,0,.27),
+                inset 0 1px 0
+                rgba(255,255,255,.035);
 
             overflow: hidden;
 
-            animation: cardIn 0.65s ease both;
+            animation:
+                fadeCard .65s ease both;
 
             transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
+                transform .24s ease,
+                border-color .24s ease,
+                box-shadow .24s ease;
         }
 
         .product::before {
             content: "";
+
             position: absolute;
-            width: 130px;
-            height: 130px;
+
+            width: 140px;
+            height: 140px;
+
             right: -75px;
-            top: -75px;
+            top: -80px;
+
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(123,91,255,0.20),
+                    rgba(121,88,255,.20),
                     transparent 70%
                 );
 
@@ -369,17 +416,21 @@
 
         .product::after {
             content: "";
+
             position: absolute;
-            left: -80px;
-            bottom: -90px;
+
             width: 150px;
             height: 150px;
+
+            left: -85px;
+            bottom: -100px;
+
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle,
-                    rgba(0,168,255,0.09),
+                    rgba(0,175,255,.09),
                     transparent 70%
                 );
 
@@ -388,45 +439,55 @@
 
         .product:hover {
             transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.13);
+
+            border-color:
+                rgba(255,255,255,.13);
 
             box-shadow:
-                0 18px 55px rgba(0,0,0,0.30),
-                0 0 22px rgba(110,80,255,0.05);
+                0 18px 58px
+                rgba(0,0,0,.30),
+                0 0 24px
+                rgba(110,80,255,.05);
         }
 
-        @keyframes cardIn {
+        @keyframes fadeCard {
 
             from {
                 opacity: 0;
-                transform: translateY(16px) scale(0.985);
+                transform:
+                    translateY(15px)
+                    scale(.986);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform:
+                    translateY(0)
+                    scale(1);
             }
 
         }
 
-        @keyframes pageIn {
+        @keyframes fadeTop {
 
             from {
                 opacity: 0;
-                transform: translateY(-12px);
+                transform:
+                    translateY(-14px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform:
+                    translateY(0);
             }
 
         }
 
 
-        /* =========================
-           СТРАНЫ
-        ========================= */
+        /* =========================================
+           COUNTRY
+        ========================================= */
 
         .country {
             display: flex;
@@ -445,55 +506,62 @@
         .country-name {
             font-size: 19px;
             font-weight: 800;
-            letter-spacing: -0.2px;
+            letter-spacing: -.2px;
         }
 
         .country-price {
-            color: #9c9ca7;
+            color: #9a9aa6;
             margin-top: 6px;
             font-size: 14px;
         }
 
 
-        /* =========================
-           КНОПКИ
-        ========================= */
+        /* =========================================
+           BUTTONS
+        ========================================= */
 
         button {
             border: 0;
             border-radius: 15px;
+
             padding: 13px 17px;
 
             background:
                 linear-gradient(
                     135deg,
                     #ffffff,
-                    #e9e9ef
+                    #e8e8ef
                 );
 
             color: #111;
+
             font-size: 16px;
             font-weight: 800;
+
             cursor: pointer;
 
             transition:
-                transform 0.18s ease,
-                box-shadow 0.22s ease,
-                filter 0.22s ease;
+                transform .17s ease,
+                box-shadow .22s ease,
+                filter .22s ease;
         }
 
         button:hover {
-            filter: brightness(1.05);
+            filter: brightness(1.06);
+
             box-shadow:
-                0 8px 28px rgba(255,255,255,0.10);
+                0 9px 28px
+                rgba(255,255,255,.10);
         }
 
         button:active {
-            transform: scale(0.95);
+            transform: scale(.95);
         }
 
         .buy {
             min-width: 105px;
+            position: relative;
+            z-index: 2;
         }
 
         .secondary {
@@ -505,56 +573,97 @@
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,255,255,0.09),
-                    rgba(255,255,255,0.035)
+                    rgba(255,255,255,.085),
+                    rgba(255,255,255,.032)
                 );
 
-            border: 1px solid rgba(255,255,255,0.08);
-
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.04);
+            border:
+                1px solid
+                rgba(255,255,255,.075);
         }
 
         .secondary:hover {
             background:
                 linear-gradient(
                     135deg,
-                    rgba(130,100,255,0.15),
-                    rgba(0,150,255,0.08)
+                    rgba(129,96,255,.16),
+                    rgba(0,160,255,.08)
                 );
         }
-
-
-        /* =========================
-           СТРАНИЦЫ
-        ========================= */
 
         .hidden {
             display: none;
         }
 
         .back {
-            margin-bottom: 14px;
+            margin-bottom: 13px;
         }
 
 
-        /* =========================
-           ПРАЙС
-        ========================= */
+        /* =========================================
+           SPECIAL MENU BUTTONS
+        ========================================= */
+
+        .menu-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-button::after {
+            content: "";
+
+            position: absolute;
+
+            top: -100%;
+            left: -120%;
+
+            width: 80px;
+            height: 260%;
+
+            transform: rotate(20deg);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.10),
+                    transparent
+                );
+
+            animation:
+                menuShine 4s ease-in-out infinite;
+        }
+
+        @keyframes menuShine {
+
+            0% {
+                left: -120%;
+            }
+
+            45%, 100% {
+                left: 150%;
+            }
+
+        }
+
+
+        /* =========================================
+           PRICE PAGE
+        ========================================= */
 
         .price-hero {
             text-align: center;
-            padding: 7px 4px 18px;
+            padding: 6px 4px 19px;
         }
 
         .price-label {
-            color: #9898a2;
+            color: #9898a3;
             font-size: 14px;
             margin-bottom: 5px;
         }
 
         .price-big {
-            font-size: 48px;
+            font-size: 49px;
             font-weight: 900;
             letter-spacing: -2px;
 
@@ -562,34 +671,39 @@
                 linear-gradient(
                     90deg,
                     #ffffff,
-                    #b7a7ff,
-                    #75d7ff
+                    #b6a4ff,
+                    #73d8ff
                 );
 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            animation: pricePulse 3s ease-in-out infinite;
+            animation:
+                pricePulse 3s ease-in-out infinite;
         }
 
         .price-description {
-            color: #8b8b96;
-            font-size: 13px;
             margin-top: 3px;
+            color: #898994;
+            font-size: 13px;
         }
 
         @keyframes pricePulse {
 
             0%, 100% {
-                filter: drop-shadow(
-                    0 0 0 rgba(130,100,255,0)
-                );
+                filter:
+                    drop-shadow(
+                        0 0 0
+                        rgba(130,100,255,0)
+                    );
             }
 
             50% {
-                filter: drop-shadow(
-                    0 0 17px rgba(130,100,255,0.24)
-                );
+                filter:
+                    drop-shadow(
+                        0 0 18px
+                        rgba(130,100,255,.26)
+                    );
             }
 
         }
@@ -600,19 +714,21 @@
             justify-content: space-between;
             gap: 12px;
 
-            padding: 15px;
             margin-top: 11px;
+            padding: 15px;
 
             border-radius: 17px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,255,255,0.052),
-                    rgba(255,255,255,0.025)
+                    rgba(255,255,255,.053),
+                    rgba(255,255,255,.022)
                 );
 
-            border: 1px solid rgba(255,255,255,0.055);
+            border:
+                1px solid
+                rgba(255,255,255,.055);
         }
 
         .price-item-left {
@@ -622,17 +738,19 @@
         }
 
         .price-icon {
-            width: 39px;
-            height: 39px;
+            width: 40px;
+            height: 40px;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             border-radius: 13px;
 
             background:
-                rgba(255,255,255,0.055);
+                rgba(255,255,255,.055);
 
-            font-size: 21px;
+            font-size: 22px;
         }
 
         .price-name {
@@ -651,14 +769,15 @@
         }
 
 
-        /* =========================
-           ПОДДЕРЖКА
-        ========================= */
+        /* =========================================
+           SUPPORT
+        ========================================= */
 
         .support-icon {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 16px;
+            width: 74px;
+            height: 74px;
+
+            margin: 0 auto 15px;
 
             display: flex;
             align-items: center;
@@ -669,16 +788,20 @@
             background:
                 linear-gradient(
                     135deg,
-                    rgba(125,90,255,0.24),
-                    rgba(0,165,255,0.12)
+                    rgba(126,91,255,.24),
+                    rgba(0,165,255,.12)
                 );
 
-            border: 1px solid rgba(255,255,255,0.08);
+            border:
+                1px solid
+                rgba(255,255,255,.08);
 
             box-shadow:
-                0 0 35px rgba(110,80,255,0.13);
+                0 0 36px
+                rgba(110,80,255,.14);
 
-            animation: supportFloat 3.2s ease-in-out infinite;
+            animation:
+                supportFloat 3.1s ease-in-out infinite;
         }
 
         .support-icon span {
@@ -692,46 +815,155 @@
             }
 
             50% {
-                transform: translateY(-6px);
+                transform: translateY(-7px);
             }
 
         }
 
         .support-text {
-            color: #a0a0aa;
+            color: #9f9faa;
             line-height: 1.65;
             font-size: 15px;
         }
 
         .username {
             display: inline-block;
+
             margin-top: 8px;
             padding: 9px 14px;
 
             border-radius: 13px;
 
             background:
-                linear-gradient(
-                    135deg,
-                    rgba(255,255,255,0.07),
-                    rgba(255,255,255,0.035)
-                );
+                rgba(255,255,255,.055);
 
-            border: 1px solid rgba(255,255,255,0.07);
+            border:
+                1px solid
+                rgba(255,255,255,.065);
 
             font-weight: 800;
         }
 
 
-        /* =========================
-           ОПЛАТА
-        ========================= */
+        /* =========================================
+           REVIEWS
+        ========================================= */
+
+        .reviews-icon {
+            width: 76px;
+            height: 76px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,189,64,.20),
+                    rgba(255,100,150,.10)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            box-shadow:
+                0 0 38px
+                rgba(255,183,71,.11);
+
+            animation:
+                reviewFloat 3.4s ease-in-out infinite;
+        }
+
+        .reviews-icon span {
+            font-size: 34px;
+        }
+
+        @keyframes reviewFloat {
+
+            0%, 100% {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-6px)
+                    rotate(-2deg);
+            }
+
+        }
+
+        .stars {
+            text-align: center;
+            font-size: 24px;
+            letter-spacing: 3px;
+            margin: 14px 0;
+            animation:
+                starsGlow 2.8s ease-in-out infinite;
+        }
+
+        @keyframes starsGlow {
+
+            0%, 100% {
+                opacity: .82;
+            }
+
+            50% {
+                opacity: 1;
+                text-shadow:
+                    0 0 18px
+                    rgba(255,201,84,.35);
+            }
+
+        }
+
+        .review-text {
+            color: #a0a0aa;
+            line-height: 1.65;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .review-channel {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .review-channel-name {
+            display: inline-block;
+
+            padding: 10px 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            border:
+                1px solid
+                rgba(255,255,255,.06);
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================
+           PAYMENT
+        ========================================= */
 
         .payment-title {
             text-align: center;
+            margin-bottom: 17px;
+
             font-size: 21px;
             font-weight: 800;
-            margin-bottom: 17px;
         }
 
         .gift-card {
@@ -747,11 +979,13 @@
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,255,255,0.05),
-                    rgba(255,255,255,0.025)
+                    rgba(255,255,255,.05),
+                    rgba(255,255,255,.023)
                 );
 
-            border: 1px solid rgba(255,255,255,0.055);
+            border:
+                1px solid
+                rgba(255,255,255,.055);
         }
 
         .gift-left {
@@ -763,12 +997,15 @@
         .gift-icon {
             width: 40px;
             height: 40px;
+
             display: flex;
             align-items: center;
             justify-content: center;
 
             border-radius: 13px;
-            background: rgba(255,255,255,0.05);
+
+            background:
+                rgba(255,255,255,.05);
 
             font-size: 22px;
         }
@@ -785,22 +1022,24 @@
 
         .payment-total {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
 
-            padding: 15px;
             margin-top: 13px;
+            padding: 15px;
 
             border-radius: 17px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(116,85,255,0.13),
-                    rgba(0,170,255,0.06)
+                    rgba(120,88,255,.14),
+                    rgba(0,169,255,.06)
                 );
 
-            border: 1px solid rgba(130,100,255,0.13);
+            border:
+                1px solid
+                rgba(130,100,255,.13);
         }
 
         .payment-total strong {
@@ -808,26 +1047,29 @@
         }
 
 
-        /* =========================
+        /* =========================================
            FOOTER
-        ========================= */
+        ========================================= */
 
         .footer {
             text-align: center;
-            color: #5d5d67;
+
+            color: #5b5b65;
             font-size: 13px;
-            margin: 28px 0 15px;
+
+            margin:
+                28px 0 15px;
         }
 
 
-        /* =========================
+        /* =========================================
            MOBILE
-        ========================= */
+        ========================================= */
 
         @media (max-width: 420px) {
 
             body {
-                padding: 13px;
+                padding: 12px;
             }
 
             .logo h1 {
@@ -862,6 +1104,10 @@
 <body>
 
 
+<!-- =========================================
+     BACKGROUND
+========================================= -->
+
 <div class="ambient">
 
     <div class="orb orb1"></div>
@@ -871,15 +1117,18 @@
 </div>
 
 
-<div class="particles" id="particles"></div>
+<div
+    class="particles"
+    id="particles"
+></div>
 
 
 <div class="container">
 
 
-    <!-- =========================
-         ГЛАВНАЯ
-    ========================= -->
+    <!-- =========================================
+         HOME
+    ========================================= -->
 
     <div id="home">
 
@@ -892,7 +1141,7 @@
             <h1>Fizshopka</h1>
 
             <p>
-                Физ номера
+                Магазин физ номеров
             </p>
 
         </div>
@@ -904,7 +1153,7 @@
         <div class="product">
 
             <button
-                class="secondary"
+                class="secondary menu-button"
                 onclick="showPrice()"
             >
                 💰 Прайс
@@ -912,7 +1161,15 @@
 
 
             <button
-                class="secondary"
+                class="secondary menu-button"
+                onclick="showReviews()"
+            >
+                ⭐ Отзывы
+            </button>
+
+
+            <button
+                class="secondary menu-button"
                 onclick="support()"
             >
                 💬 Поддержка
@@ -923,11 +1180,14 @@
     </div>
 
 
-    <!-- =========================
-         ОПЛАТА
-    ========================= -->
+    <!-- =========================================
+         PAYMENT
+    ========================================= -->
 
-    <div id="payment" class="hidden">
+    <div
+        id="payment"
+        class="hidden"
+    >
 
         <button
             class="secondary back"
@@ -1029,7 +1289,7 @@
 
 
             <button
-                class="secondary"
+                class="secondary menu-button"
                 onclick="giftPayment()"
             >
                 🎁 Перейти к оплате
@@ -1040,11 +1300,14 @@
     </div>
 
 
-    <!-- =========================
-         ПРАЙС
-    ========================= -->
+    <!-- =========================================
+         PRICE
+    ========================================= -->
 
-    <div id="pricePage" class="hidden">
+    <div
+        id="pricePage"
+        class="hidden"
+    >
 
         <button
             class="secondary back"
@@ -1060,10 +1323,12 @@
                 <span>💎</span>
             </div>
 
-            <h1>Прайс</h1>
+            <h1>
+                Прайс
+            </h1>
 
             <p>
-                Физ номера
+                Fizshopka
             </p>
 
         </div>
@@ -1074,7 +1339,7 @@
             <div class="price-hero">
 
                 <div class="price-label">
-                    Стоимость номера
+                    Физ номер
                 </div>
 
                 <div class="price-big">
@@ -1082,7 +1347,7 @@
                 </div>
 
                 <div class="price-description">
-                    Один номер
+                    стоимость одного номера
                 </div>
 
             </div>
@@ -1103,7 +1368,7 @@
                         </div>
 
                         <div class="price-note">
-                            для оплаты
+                            первая часть оплаты
                         </div>
 
                     </div>
@@ -1132,7 +1397,7 @@
                         </div>
 
                         <div class="price-note">
-                            для оплаты
+                            вторая часть оплаты
                         </div>
 
                     </div>
@@ -1174,16 +1439,109 @@
 
             </div>
 
+
+            <p
+                style="
+                    color:#8c8c96;
+                    font-size:14px;
+                    line-height:1.6;
+                    text-align:center;
+                    margin:19px 4px 4px;
+                "
+            >
+                🎁 Для оплаты отправьте
+                💐 букет и 🌹 розу.
+            </p>
+
         </div>
 
     </div>
 
 
-    <!-- =========================
-         ПОДДЕРЖКА
-    ========================= -->
+    <!-- =========================================
+         REVIEWS
+    ========================================= -->
 
-    <div id="supportPage" class="hidden">
+    <div
+        id="reviewsPage"
+        class="hidden"
+    >
+
+        <button
+            class="secondary back"
+            onclick="goHome()"
+        >
+            ← Назад
+        </button>
+
+
+        <div class="logo">
+
+            <div class="reviews-icon">
+                <span>⭐</span>
+            </div>
+
+            <h1>
+                Отзывы
+            </h1>
+
+            <p>
+                Отзывы покупателей Fizshopka
+            </p>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="stars">
+                ⭐ ⭐ ⭐ ⭐ ⭐
+            </div>
+
+
+            <div class="review-text">
+
+                Хотите посмотреть отзывы
+                покупателей перед заказом?
+
+                <br><br>
+
+                Загляните в наш Telegram-канал —
+                там находятся реальные отзывы
+                и впечатления клиентов.
+
+            </div>
+
+
+            <div class="review-channel">
+
+                <div class="review-channel-name">
+                    @otzywyf
+                </div>
+
+            </div>
+
+
+            <button
+                class="secondary menu-button"
+                onclick="openReviews()"
+            >
+                ⭐ Смотреть отзывы
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SUPPORT
+    ========================================= -->
+
+    <div
+        id="supportPage"
+        class="hidden"
+    >
 
         <button
             class="secondary back"
@@ -1225,14 +1583,14 @@
 
             <p class="support-text">
                 Возникла проблема с заказом,
-                оплатой или получением номера?
+                оплатой или получением физ номера?
             </p>
 
 
             <p class="support-text">
                 Напишите в поддержку и укажите
-                номер заказа. Постараемся решить
-                проблему как можно быстрее.
+                номер заказа. Постараемся помочь
+                как можно быстрее.
             </p>
 
 
@@ -1261,7 +1619,7 @@
 
 
             <button
-                class="secondary"
+                class="secondary menu-button"
                 onclick="openSupport()"
             >
                 💬 Написать в поддержку
@@ -1282,47 +1640,55 @@
 
 <script>
 
-    const tg = window.Telegram.WebApp;
+    const tg =
+        window.Telegram.WebApp;
 
     tg.ready();
     tg.expand();
 
 
-    /* =========================
-       ЧАСТИЦЫ
-    ========================= */
+    /* =========================================
+       PARTICLES
+    ========================================= */
 
     const particleContainer =
         document.getElementById("particles");
 
 
-    for (let i = 0; i < 24; i++) {
+    for (
+        let i = 0;
+        i < 28;
+        i++
+    ) {
 
         const particle =
             document.createElement("div");
 
-        particle.className = "particle";
+        particle.className =
+            "particle";
 
         particle.style.left =
             Math.random() * 100 + "%";
 
         particle.style.animationDuration =
-            (7 + Math.random() * 9) + "s";
+            (7 + Math.random() * 10) + "s";
 
         particle.style.animationDelay =
-            (-Math.random() * 14) + "s";
+            (-Math.random() * 15) + "s";
 
         particle.style.opacity =
             0.2 + Math.random() * 0.6;
 
-        particleContainer.appendChild(particle);
+        particleContainer.appendChild(
+            particle
+        );
 
     }
 
 
-    /* =========================
-       СТРАНЫ
-    ========================= */
+    /* =========================================
+       COUNTRIES
+    ========================================= */
 
     const countries = [
 
@@ -1347,63 +1713,76 @@
     function renderCountries() {
 
         const container =
-            document.getElementById("countries");
+            document.getElementById(
+                "countries"
+            );
 
 
-        countries.forEach((country, index) => {
+        countries.forEach(
+            (country, index) => {
 
-            const code = country[0];
+                const code =
+                    country[0];
 
-            const flag = country[1];
+                const flag =
+                    country[1];
 
-            const name = country[2];
-
-
-            const product =
-                document.createElement("div");
-
-
-            product.className = "product";
+                const name =
+                    country[2];
 
 
-            product.style.animationDelay =
-                (index * 0.055) + "s";
+                const product =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            product.innerHTML = `
+                product.className =
+                    "product";
 
-                <div class="country">
 
-                    <div class="country-info">
+                product.style.animationDelay =
+                    (index * 0.055) + "s";
 
-                        <div class="country-name">
-                            ${flag} ${name}
+
+                product.innerHTML = `
+
+                    <div class="country">
+
+                        <div class="country-info">
+
+                            <div class="country-name">
+                                ${flag} ${name}
+                            </div>
+
+                            <div class="country-price">
+                                🎁 75 ⭐
+                            </div>
+
                         </div>
 
-                        <div class="country-price">
-                            🎁 75 ⭐
-                        </div>
+
+                        <button
+                            class="buy"
+                            onclick="openPayment(
+                                '${code}',
+                                '${flag} ${name}'
+                            )"
+                        >
+                            Купить
+                        </button>
 
                     </div>
 
-                    <button
-                        class="buy"
-                        onclick="openPayment(
-                            '${code}',
-                            '${flag} ${name}'
-                        )"
-                    >
-                        Купить
-                    </button>
-
-                </div>
-
-            `;
+                `;
 
 
-            container.appendChild(product);
+                container.appendChild(
+                    product
+                );
 
-        });
+            }
+        );
 
     }
 
@@ -1411,9 +1790,9 @@
     renderCountries();
 
 
-    /* =========================
-       ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
-    ========================= */
+    /* =========================================
+       PAGE SWITCH
+    ========================================= */
 
     function hideAllPages() {
 
@@ -1430,13 +1809,24 @@
             .classList.add("hidden");
 
         document
+            .getElementById("reviewsPage")
+            .classList.add("hidden");
+
+        document
             .getElementById("supportPage")
             .classList.add("hidden");
 
     }
 
 
-    function openPayment(code, name) {
+    /* =========================================
+       PAYMENT
+    ========================================= */
+
+    function openPayment(
+        code,
+        name
+    ) {
 
         selectedCountry = code;
 
@@ -1465,28 +1855,6 @@
     }
 
 
-    function goHome() {
-
-        hideAllPages();
-
-
-        document
-            .getElementById("home")
-            .classList.remove("hidden");
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    /* =========================
-       ОПЛАТА
-    ========================= */
-
     function giftPayment() {
 
         if (!selectedCountry) {
@@ -1510,9 +1878,31 @@
     }
 
 
-    /* =========================
-       ПРАЙС
-    ========================= */
+    /* =========================================
+       HOME
+    ========================================= */
+
+    function goHome() {
+
+        hideAllPages();
+
+
+        document
+            .getElementById("home")
+            .classList.remove("hidden");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================
+       PRICE
+    ========================================= */
 
     function showPrice() {
 
@@ -1532,9 +1922,40 @@
     }
 
 
-    /* =========================
-       ПОДДЕРЖКА
-    ========================= */
+    /* =========================================
+       REVIEWS
+    ========================================= */
+
+    function showReviews() {
+
+        hideAllPages();
+
+
+        document
+            .getElementById("reviewsPage")
+            .classList.remove("hidden");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function openReviews() {
+
+        tg.openTelegramLink(
+            "https://t.me/otzywyf"
+        );
+
+    }
+
+
+    /* =========================================
+       SUPPORT
+    ========================================= */
 
     function support() {
 
